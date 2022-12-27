@@ -2,11 +2,13 @@
 using BugOsPos.Contracts.Authentication;
 using MapsterMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugOsPos.Api.Controllers;
+
 [ApiController]
+[AllowAnonymous]
 public class AuthenticationController : ApiController
 {
     private readonly IMapper _mapper;

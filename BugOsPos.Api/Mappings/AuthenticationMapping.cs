@@ -10,7 +10,7 @@ public class AuthenticationMapping : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<AuthenticationResult, CustomerAuthenticationResponse>()
-            .Map(dest => dest, src => src.customer)
+            .Map(dest => dest, src => src.Customer)
             .Map(dest => dest.Token, src => src.Token);
 
         config.NewConfig<CustomerRegisterRequest, CustomerRegisterCommand>();

@@ -3,5 +3,5 @@
 namespace BugOsPos.Application.Authentication.Common;
 
 public record AuthenticationResult(
-    Customer customer,
+    Customer Customer,
     string Token);
