@@ -1,8 +1,6 @@
-﻿using BugOsPos.Api.Attributes;
-using BugOsPos.Application.Authentication.Commands.Login;
+﻿using BugOsPos.Application.Authentication.Commands.Login;
 using BugOsPos.Application.Authentication.Commands.Register;
 using BugOsPos.Contracts.Authentication;
-using BugOsPos.Domain.EmployeeAggregate;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
