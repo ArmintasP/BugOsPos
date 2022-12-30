@@ -10,6 +10,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
 {
     public string EmployeeCode { get; }
     public string Password { get; }
+    public byte[] Salt { get; }
     public FranchiseId FranchiseId { get; }
     public GroupId GroupId { get; }
     public int ReadAccess { get; }
@@ -28,6 +29,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     EmployeeId id,
     string employeeCode,
     string password,
+    byte[] salt,
     FranchiseId franchiseId,
     GroupId groupId,
     int readAccess,
@@ -44,6 +46,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     {
         EmployeeCode = employeeCode;
         Password = password;
+        Salt = salt;
         FranchiseId = franchiseId;
         GroupId = groupId;
         ReadAccess = readAccess;
@@ -60,26 +63,28 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     }
 
     public static Employee New(
-    EmployeeId id,
-    string employeeCode,
-    string password,
-    FranchiseId franchiseId,
-    GroupId groupId,
-    int readAccess,
-    string email,
-    string name,
-    string surname,
-    string phoneNumber,
-    string address,
-    string bankAccount,
-    decimal employment,
-    List<EmployeeType> type,
-    DateOnly dateOfBirth)
+        EmployeeId id,
+        string employeeCode,
+        string password,
+        byte[] salt,
+        FranchiseId franchiseId,
+        GroupId groupId,
+        int readAccess,
+        string email,
+        string name,
+        string surname,
+        string phoneNumber,
+        string address,
+        string bankAccount,
+        decimal employment,
+        List<EmployeeType> type,
+        DateOnly dateOfBirth)
     {
         return new Employee(
             id,
             employeeCode,
             password,
+            salt,
             franchiseId,
             groupId,
             readAccess,

@@ -18,6 +18,9 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.AddAuthentication(configuration);
+        
+        services.Configure<PasswordHasherSettings>(configuration.GetSection("PasswordHasherSettings"));
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         services.AddSingleton<IClock, Clock>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();

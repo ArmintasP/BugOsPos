@@ -1,4 +1,5 @@
-﻿using BugOsPos.Application.Authentication.Commands.Register;
+﻿using BugOsPos.Application.Authentication.Commands.Login;
+using BugOsPos.Application.Authentication.Commands.Register;
 using BugOsPos.Contracts.Authentication;
 using MapsterMapper;
 using MediatR;
@@ -32,8 +33,13 @@ public class AuthenticationController : ApiController
     }
 
     [HttpPost("customers/login")]
-    public IActionResult Login(CustomerLoginRequest request)
+    public async Task<IActionResult> Login(CustomerLoginRequest request)
     {
-        return Ok(request);
+        var command = _mapper.Map<CustomerLoginCommand>(request);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<CustomerAuthenticationResponse>(result)),
+            errors => Problem(errors));
     }
 }

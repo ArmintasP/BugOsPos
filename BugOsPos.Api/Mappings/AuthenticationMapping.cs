@@ -1,4 +1,5 @@
-﻿using BugOsPos.Application.Authentication.Commands.Register;
+﻿using BugOsPos.Application.Authentication.Commands.Login;
+using BugOsPos.Application.Authentication.Commands.Register;
 using BugOsPos.Application.Authentication.Common;
 using BugOsPos.Contracts.Authentication;
 using Mapster;
@@ -16,5 +17,6 @@ public class AuthenticationMapping : IRegister
             .Map(dest => dest.Token, src => src.Token);
 
         config.NewConfig<CustomerRegisterRequest, CustomerRegisterCommand>();
+        config.NewConfig<CustomerLoginRequest, CustomerLoginCommand>();
     }
 }

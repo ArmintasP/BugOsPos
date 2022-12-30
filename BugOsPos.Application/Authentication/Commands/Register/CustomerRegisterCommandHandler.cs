@@ -13,13 +13,16 @@ public sealed class CustomerRegisterCommandHandler :
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly ICustomerRepository _customerRepository;
+    private readonly IPasswordHasher _passwordHasher;
 
     public CustomerRegisterCommandHandler(
         IJwtTokenGenerator jwtTokenGenerator,
-        ICustomerRepository customerRepository)
+        ICustomerRepository customerRepository,
+        IPasswordHasher passwordHasher)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _customerRepository = customerRepository;
+        _passwordHasher = passwordHasher;
     }
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(
@@ -35,10 +38,13 @@ public sealed class CustomerRegisterCommandHandler :
         if (errors.Count > 0)
             return errors;
 
+        var (hashedPassword, salt) = _passwordHasher.Hash(request.Password);
+
         var customer = Customer.New(
             _customerRepository.NextIdentity(),
             request.Username,
-            request.Password,
+            hashedPassword,
+            salt,
             request.Email,
             request.Name,
             request.Surname,

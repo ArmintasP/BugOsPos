@@ -8,6 +8,7 @@ public sealed class Customer : AggregateRoot<CustomerId>
 {
     public string Username { get; }
     public string Password { get; }
+    public byte[] Salt { get; }
     public string Email { get; }
     public string Name { get; }
     public string Surname { get; }
@@ -19,6 +20,7 @@ public sealed class Customer : AggregateRoot<CustomerId>
         CustomerId id,
         string username,
         string password,
+        byte[] salt,
         string email,
         string name,
         string surname,
@@ -28,6 +30,7 @@ public sealed class Customer : AggregateRoot<CustomerId>
     {
         Username = username;
         Password = password;
+        Salt = salt;
         Email = email;
         Name = name;
         Surname = surname;
@@ -39,6 +42,7 @@ public sealed class Customer : AggregateRoot<CustomerId>
         CustomerId id,
         string username,
         string password,
+        byte[] salt,
         string email,
         string name,
         string surname,
@@ -49,6 +53,7 @@ public sealed class Customer : AggregateRoot<CustomerId>
             id,
             username,
             password,
+            salt,
             email,
             name,
             surname,
