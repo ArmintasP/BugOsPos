@@ -17,9 +17,4 @@ public sealed class CustomerId : ValueObject
     {
         yield return Value;
     }
-
-    public override string ToString()
-    {
-        return string.Join('-', GetEqualityComponents());
-    }
 }

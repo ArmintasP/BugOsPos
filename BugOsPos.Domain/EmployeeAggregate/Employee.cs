@@ -22,7 +22,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     public string BankAccount { get; }
     public decimal Employment { get; }
     public Rating Rating { get; }
-    public List<EmployeeType> Type { get; }
+    public List<EmployeeType> Types { get; }
     public DateOnly DateOfBirth { get; }
 
     private Employee(
@@ -58,7 +58,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
         BankAccount = bankAccount;
         Employment = employment;
         Rating = Rating.New();
-        Type = type;
+        Types = type;
         DateOfBirth = dateOfBirth;
     }
 

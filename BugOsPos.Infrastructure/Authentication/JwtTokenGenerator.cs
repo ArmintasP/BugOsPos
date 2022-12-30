@@ -1,6 +1,7 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Authentication;
 using BugOsPos.Application.Common.Interfaces.Clock;
 using BugOsPos.Domain.CustomerAggregate;
+using BugOsPos.Domain.EmployeeAggregate;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -34,7 +35,36 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             new Claim(JwtRegisteredClaimNames.Name, customer.Name ?? string.Empty),
             new Claim(JwtRegisteredClaimNames.FamilyName, customer.Surname ?? string.Empty),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+    };
+
+        var token = new JwtSecurityToken(
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
+            expires: _clock.UtcNow.AddMinutes(_jwtSettings.ExpiryInMinutes),
+            claims: claims,
+            signingCredentials: signingCredentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+    
+    public string GenerateToken(Employee employee)
+    {
+        var signingCredentials = new SigningCredentials(
+            new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
+            SecurityAlgorithms.HmacSha256Signature);
+
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, employee.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.UniqueName, employee.EmployeeCode),
+            new Claim(JwtRegisteredClaimNames.Name, employee.Name ?? string.Empty),
+            new Claim(JwtRegisteredClaimNames.FamilyName, employee.Surname ?? string.Empty),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+
+        foreach (var type in employee.Types)
+            claims.Add(new Claim(ClaimTypes.Role, type.ToString()));
 
         var token = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
