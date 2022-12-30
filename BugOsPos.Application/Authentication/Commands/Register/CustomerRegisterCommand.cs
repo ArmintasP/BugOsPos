@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BugOsPos.Application.Authentication.Commands.Register;
 
-public record CustomerRegisterCommand(
+public sealed record CustomerRegisterCommand(
     int FranchiseId,
     string Username,
     string Email,

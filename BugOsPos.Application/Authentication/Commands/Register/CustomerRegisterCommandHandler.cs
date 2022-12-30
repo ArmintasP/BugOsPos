@@ -8,7 +8,7 @@ using MediatR;
 
 namespace BugOsPos.Application.Authentication.Commands.Register;
 
-public class CustomerRegisterCommandHandler :
+public sealed class CustomerRegisterCommandHandler :
     IRequestHandler<CustomerRegisterCommand, ErrorOr<AuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;

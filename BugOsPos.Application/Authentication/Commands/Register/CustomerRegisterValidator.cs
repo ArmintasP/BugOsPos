@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BugOsPos.Application.Authentication.Commands.Register;
 
-public class CustomerRegisterValidator : AbstractValidator<CustomerRegisterCommand>
+public sealed class CustomerRegisterValidator : AbstractValidator<CustomerRegisterCommand>
 {
     private const int MinUsernameLength = 4;
     private const int MaxUsernameLength = 12;
