@@ -1,45 +1,58 @@
-﻿namespace BugOsPos.Domain.CustomerAggregate;
+﻿using BugOsPos.Domain.Common.Models;
+using BugOsPos.Domain.CustomerAggregate.ValueObjects;
+using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 
-public class Customer
+namespace BugOsPos.Domain.CustomerAggregate;
+
+public sealed class Customer : AggregateRoot<CustomerId>
 {
-    public int Id { get; set; }
-    public int FranchiseId { get; set; }
-    public string Username { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public bool Blocked { get; set; }
-    public string Name { get; set; }
-    public string Surname { get; set; }
-    public string? DeliveryAddress { get; set; }
+    public string Username { get; }
+    public string Password { get; }
+    public string Email { get; }
+    public string Name { get; }
+    public string Surname { get; }
+    public string? Address { get; }
+    public FranchiseId FranchiseId { get; }
+    public bool IsBlocked { get; }
 
     private Customer(
-        int franchiseId,
+        CustomerId id,
         string username,
-        string email,
         string password,
-        bool blocked,
+        string email,
         string name,
         string surname,
-        string? deliveryAddress = null)
+        string? address,
+        FranchiseId franchiseId)
+        : base(id)
     {
-        FranchiseId = franchiseId;
         Username = username;
-        Email = email;
         Password = password;
-        Blocked = blocked;
+        Email = email;
         Name = name;
         Surname = surname;
-        DeliveryAddress = deliveryAddress;
+        Address = address;
+        FranchiseId = franchiseId;
     }
 
-    public static Customer Create(
-        int franchiseId,
+    public static Customer New(
+        CustomerId id,
         string username,
-        string email,
         string password,
+        string email,
         string name,
-        string surname)
+        string surname,
+        string? address,
+        int franchiseId)
     {
-        return new(franchiseId, username, email, password, blocked: false, name, surname);
+        return new Customer(
+            id,
+            username,
+            password,
+            email,
+            name,
+            surname,
+            address,
+            FranchiseId.New(franchiseId));
     }
 }
