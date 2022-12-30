@@ -37,7 +37,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         };
 
         var token = new JwtSecurityToken(
-            issuer: customer.FranchiseId.ToString(),
+            issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
             expires: _clock.UtcNow.AddMinutes(_jwtSettings.ExpiryInMinutes),
             claims: claims,

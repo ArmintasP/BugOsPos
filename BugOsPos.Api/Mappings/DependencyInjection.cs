@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace BugOsPos.Api.Mappings;
 
-public static class DependencyInjection
+public static class SwaggerInjection
 {
     public static IServiceCollection AddMappings(this IServiceCollection services)
     {

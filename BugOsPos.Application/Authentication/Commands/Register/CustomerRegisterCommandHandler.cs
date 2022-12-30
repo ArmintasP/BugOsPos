@@ -35,13 +35,15 @@ public class CustomerRegisterCommandHandler :
         if (errors.Count > 0)
             return errors;
 
-        var customer = Customer.Create(
-            request.FranchiseId,
+        var customer = Customer.New(
+            _customerRepository.NextIdentity(),
             request.Username,
-            request.Email,
             request.Password,
+            request.Email,
             request.Name,
-            request.Surname);
+            request.Surname,
+            null,
+            request.FranchiseId);
 
         await _customerRepository.Add(customer);
 

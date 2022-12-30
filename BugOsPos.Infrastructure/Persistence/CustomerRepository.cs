@@ -1,5 +1,6 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
 using BugOsPos.Domain.CustomerAggregate;
+using BugOsPos.Domain.CustomerAggregate.ValueObjects;
 
 namespace BugOsPos.Infrastructure.Persistence;
 
@@ -7,9 +8,16 @@ public class CustomerRepository : ICustomerRepository
 {
     private static readonly List<Customer> _customers = new();
 
+    // If it was a db, we would get generated id from there.
+    // Ideally, it would be better to have keys as GUID instead of ints (as it is required by the documentation).
+    
+    public CustomerId NextIdentity()
+    {
+        return CustomerId.New(_customers.Count + 1);
+    }
+
     public Task Add(Customer customer)
     {
-        customer.Id = _customers.Count + 1;
         _customers.Add(customer);
         return Task.CompletedTask;
     }
@@ -18,7 +26,7 @@ public class CustomerRepository : ICustomerRepository
     {
         var customer = _customers.SingleOrDefault(c =>
             c.Email == email &&
-            c.FranchiseId == franchiseId);
+            c.FranchiseId.Value == franchiseId);
 
         return Task.FromResult(customer);
     }
@@ -27,7 +35,7 @@ public class CustomerRepository : ICustomerRepository
     {
         var customer = _customers.SingleOrDefault(c =>
             c.Username == username &&
-            c.FranchiseId == franchiseId);
+            c.FranchiseId.Value == franchiseId);
 
         return Task.FromResult(customer);
     }

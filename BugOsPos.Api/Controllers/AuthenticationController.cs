@@ -19,7 +19,7 @@ public class AuthenticationController : ApiController
         _mapper = mapper;
         _mediator = mediator;
     }
-
+    
     [HttpPost("customers/signup")]
     public async Task<IActionResult> Register(CustomerRegisterRequest request)
     {
