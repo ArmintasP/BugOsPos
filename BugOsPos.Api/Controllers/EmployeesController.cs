@@ -1,9 +1,8 @@
 ﻿using BugOsPos.Api.Attributes;
 using BugOsPos.Application.Authentication.Commands.EmployeeRegister;
 using BugOsPos.Application.Authentication.Queries.EmployeeLogin;
-using BugOsPos.Contracts.CustomerAuthentication;
 using BugOsPos.Contracts.EmployeeAuthentication;
-using BugOsPos.Domain.Common.Errors;
+using BugOsPos.Domain.Common.ErrorsCollection;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Infrastructure.Authentication;
 using MapsterMapper;
@@ -26,8 +25,7 @@ public sealed class EmployeesController : ApiController
 
     [HttpPost("employees/create")]
     [AuthorizeRoles(EmployeeRole.Manager)]
-    //[AllowAnonymous]
-    public async Task<IActionResult> RegisterEmployee(EmployeeRegisterRequest request)
+    public async Task<IActionResult> Register(EmployeeRegisterRequest request)
     {
         if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
             return Problem(new() { Errors.Authentication.FranchiseIdMissing });

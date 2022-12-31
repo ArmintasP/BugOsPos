@@ -1,5 +1,5 @@
 ﻿using BugOsPos.Api.Http;
-using BugOsPos.Domain.Common.Errors;
+using BugOsPos.Domain.Common.ErrorsCollection;
 using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

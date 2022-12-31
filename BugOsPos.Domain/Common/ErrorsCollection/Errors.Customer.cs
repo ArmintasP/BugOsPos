@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 
-namespace BugOsPos.Domain.Common.Errors;
+namespace BugOsPos.Domain.Common.ErrorsCollection;
 public static partial class Errors
 {
     public static class Customer
@@ -12,5 +12,13 @@ public static partial class Errors
         public static Error DuplicateUsername => Error.Conflict(
             code: "Customer.DuplicateUsername",
             description: "The username is already in use by another customer.");
+
+        public static Error NotFound => Error.NotFound(
+            code: "Customer.NotFound",
+            description: "The customer was not found.");
+        
+        public static Error Unauthorized => Error.Conflict(
+            code: "Customer.Unauthorized",
+            description: "Unauthorized access to another customer.");
     }
 }

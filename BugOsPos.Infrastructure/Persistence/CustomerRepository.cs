@@ -39,4 +39,18 @@ public sealed class CustomerRepository : ICustomerRepository
 
         return Task.FromResult(customer);
     }
+
+    public Task<Customer?> GetCustomerById(int id)
+    {
+        var customer = _customers.SingleOrDefault(c => c.Id.Value == id);
+
+        return Task.FromResult(customer);
+    }
+
+    public Task Update(Customer customer)
+    {
+        var index = _customers.FindIndex(c => c.Id == customer.Id);
+        _customers[index] = customer;
+        return Task.CompletedTask;
+    }
 }

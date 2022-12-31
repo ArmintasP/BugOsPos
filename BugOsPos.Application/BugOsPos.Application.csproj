@@ -9,4 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BugOsPos.Domain\BugOsPos.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Employees\" />
+  </ItemGroup>
 </Project>

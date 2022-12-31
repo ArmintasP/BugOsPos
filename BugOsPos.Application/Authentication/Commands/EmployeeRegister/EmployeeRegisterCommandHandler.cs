@@ -1,9 +1,9 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Authentication;
 using BugOsPos.Application.Common.Interfaces.Persistence;
+using BugOsPos.Domain.Common.ErrorsCollection;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.GroupAggregate;
-using BugOsPos.Domain.Common.Errors;
 using ErrorOr;
 using MediatR;
 
