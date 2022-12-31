@@ -6,36 +6,36 @@ using BugOsPos.Domain.CustomerAggregate;
 using ErrorOr;
 using MediatR;
 
-namespace BugOsPos.Application.Authentication.Commands.Login;
+namespace BugOsPos.Application.Authentication.Queries.CustomerLogin;
 
-public sealed class CustomerLoginCommandHandler :
-    IRequestHandler<CustomerLoginCommand, ErrorOr<AuthenticationResult>>
+public sealed class CustomerLoginQueryHandler :
+    IRequestHandler<CustomerLoginQuery, ErrorOr<CustomerAuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly ICustomerRepository _customerRepository;
-    private readonly IPasswordHasher _passwordHasher;
+    private readonly IPasswordProvider _passwordHasher;
 
-    public CustomerLoginCommandHandler(
+    public CustomerLoginQueryHandler(
         IJwtTokenGenerator jwtTokenGenerator,
         ICustomerRepository customerRepository,
-        IPasswordHasher passwordHasher)
+        IPasswordProvider passwordHasher)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _customerRepository = customerRepository;
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<ErrorOr<AuthenticationResult>> Handle(
-        CustomerLoginCommand request,
+    public async Task<ErrorOr<CustomerAuthenticationResult>> Handle(
+        CustomerLoginQuery request,
         CancellationToken cancellationToken)
     {
         if (await _customerRepository.GetCustomerByUsername(request.Username, request.FranchiseId) is not Customer customer)
             return Errors.Authentication.InvalidCredentials;
 
-        if (!_passwordHasher.Verify(request.Password, customer.Password, customer.Salt))
+        if (!_passwordHasher.VerifyPassword(request.Password, customer.Password, customer.Salt))
             return Errors.Authentication.InvalidCredentials;
 
         var token = _jwtTokenGenerator.GenerateToken(customer);
-        return new AuthenticationResult(customer, token);
+        return new CustomerAuthenticationResult(customer, token);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-namespace BugOsPos.Application.Authentication.Commands.Login;
+namespace BugOsPos.Application.Authentication.Queries.CustomerLogin;
 
-public sealed class CustomerLoginValidator : AbstractValidator<CustomerLoginCommand>
+public sealed class CustomerLoginValidator : AbstractValidator<CustomerLoginQuery>
 {
     public CustomerLoginValidator()
     {

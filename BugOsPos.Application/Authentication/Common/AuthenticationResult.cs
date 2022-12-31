@@ -2,6 +2,6 @@
 
 namespace BugOsPos.Application.Authentication.Common;
 
-public record AuthenticationResult(
+public record CustomerAuthenticationResult(
     Customer Customer,
     string Token);

@@ -1,8 +1,10 @@
 ﻿using BugOsPos.Api.Http;
+using BugOsPos.Domain.Common.Errors;
 using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Security.Claims;
 
 namespace BugOsPos.Api.Controllers;
 
@@ -10,6 +12,14 @@ namespace BugOsPos.Api.Controllers;
 [Authorize]
 public class ApiController : ControllerBase
 {
+    protected string? GetClaimValue(string claimKey)
+    {
+        return HttpContext.User.Claims
+            .Where(claim => claim.Type == claimKey)
+            .Select(claim => claim.Value)
+            .FirstOrDefault();
+    }
+    
     protected IActionResult Problem(List<Error> errors)
     {
         if (errors.Count is 0)

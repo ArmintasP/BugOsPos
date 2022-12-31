@@ -12,7 +12,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     public string Password { get; }
     public byte[] Salt { get; }
     public FranchiseId FranchiseId { get; }
-    public GroupId GroupId { get; }
+    public GroupId? GroupId { get; }
     public int ReadAccess { get; }
     public string Email { get; }
     public string Name { get; }
@@ -22,7 +22,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     public string BankAccount { get; }
     public decimal Employment { get; }
     public Rating Rating { get; }
-    public List<EmployeeType> Types { get; }
+    public List<EmployeeRole> Roles { get; }
     public DateOnly DateOfBirth { get; }
 
     private Employee(
@@ -31,7 +31,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     string password,
     byte[] salt,
     FranchiseId franchiseId,
-    GroupId groupId,
+    GroupId? groupId,
     int readAccess,
     string email,
     string name,
@@ -40,7 +40,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
     string address,
     string bankAccount,
     decimal employment,
-    List<EmployeeType> type,
+    List<EmployeeRole> roles,
     DateOnly dateOfBirth)
     : base(id)
     {
@@ -58,7 +58,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
         BankAccount = bankAccount;
         Employment = employment;
         Rating = Rating.New();
-        Types = type;
+        Roles = roles;
         DateOfBirth = dateOfBirth;
     }
 
@@ -68,7 +68,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
         string password,
         byte[] salt,
         FranchiseId franchiseId,
-        GroupId groupId,
+        GroupId? groupId,
         int readAccess,
         string email,
         string name,
@@ -77,7 +77,7 @@ public sealed class Employee : AggregateRoot<EmployeeId>
         string address,
         string bankAccount,
         decimal employment,
-        List<EmployeeType> type,
+        List<EmployeeRole> roles,
         DateOnly dateOfBirth)
     {
         return new Employee(
@@ -95,12 +95,12 @@ public sealed class Employee : AggregateRoot<EmployeeId>
             address,
             bankAccount,
             employment,
-            type,
+            roles,
             dateOfBirth);
     }
 }
 
-public enum EmployeeType
+public enum EmployeeRole
 {
     Manager = 0,
     GroupManager = 1,

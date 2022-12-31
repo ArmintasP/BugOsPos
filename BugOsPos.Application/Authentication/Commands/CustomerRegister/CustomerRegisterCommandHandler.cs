@@ -6,26 +6,26 @@ using BugOsPos.Domain.CustomerAggregate;
 using ErrorOr;
 using MediatR;
 
-namespace BugOsPos.Application.Authentication.Commands.Register;
+namespace BugOsPos.Application.Authentication.Commands.CustomerRegister;
 
 public sealed class CustomerRegisterCommandHandler :
-    IRequestHandler<CustomerRegisterCommand, ErrorOr<AuthenticationResult>>
+    IRequestHandler<CustomerRegisterCommand, ErrorOr<CustomerAuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly ICustomerRepository _customerRepository;
-    private readonly IPasswordHasher _passwordHasher;
+    private readonly IPasswordProvider _passwordHasher;
 
     public CustomerRegisterCommandHandler(
         IJwtTokenGenerator jwtTokenGenerator,
         ICustomerRepository customerRepository,
-        IPasswordHasher passwordHasher)
+        IPasswordProvider passwordHasher)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _customerRepository = customerRepository;
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<ErrorOr<AuthenticationResult>> Handle(
+    public async Task<ErrorOr<CustomerAuthenticationResult>> Handle(
         CustomerRegisterCommand request,
         CancellationToken cancellationToken)
     {
@@ -38,7 +38,7 @@ public sealed class CustomerRegisterCommandHandler :
         if (errors.Count > 0)
             return errors;
 
-        var (hashedPassword, salt) = _passwordHasher.Hash(request.Password);
+        var (hashedPassword, salt) = _passwordHasher.HashPassword(request.Password);
 
         var customer = Customer.New(
             _customerRepository.NextIdentity(),
@@ -54,6 +54,6 @@ public sealed class CustomerRegisterCommandHandler :
         await _customerRepository.Add(customer);
 
         var token = _jwtTokenGenerator.GenerateToken(customer);
-        return new AuthenticationResult(customer, token);
+        return new CustomerAuthenticationResult(customer, token);
     }
 }

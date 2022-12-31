@@ -2,7 +2,7 @@
 using ErrorOr;
 using MediatR;
 
-namespace BugOsPos.Application.Authentication.Commands.Register;
+namespace BugOsPos.Application.Authentication.Commands.CustomerRegister;
 
 public sealed record CustomerRegisterCommand(
     int FranchiseId,
@@ -10,4 +10,4 @@ public sealed record CustomerRegisterCommand(
     string Email,
     string Password,
     string Name,
-    string Surname) : IRequest<ErrorOr<AuthenticationResult>>;
+    string Surname) : IRequest<ErrorOr<CustomerAuthenticationResult>>;

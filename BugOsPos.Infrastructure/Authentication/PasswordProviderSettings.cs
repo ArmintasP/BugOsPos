@@ -2,7 +2,7 @@
 
 namespace BugOsPos.Infrastructure.Authentication;
 
-public sealed record PasswordHasherSettings
+public sealed record PasswordProviderSettings
 {
     private readonly HashAlgorithmName _algorithm;
     private readonly string _algorithmName = null!;

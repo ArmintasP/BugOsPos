@@ -1,9 +1,5 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BugOsPos.Domain.EmployeeAggregate;
+using FluentValidation;
 
 namespace BugOsPos.Application.Common.Behaviors;
 public static class ValidationExtensions
@@ -24,8 +20,21 @@ public static class ValidationExtensions
                 context.AddFailure("Password must contain at least one lowercase letter");
             if (!password.Any(char.IsDigit))
                 context.AddFailure("Password must contain at least one digit");
-            if (!password.Any(char.IsSymbol))
-                context.AddFailure("Password must contain at least one symbol");
+        });
+    }
+
+    public static IRuleBuilderOptionsConditions<T, List<string>> EmployeeRoles<T>(
+        this IRuleBuilder<T, List<string>> ruleBuilder)
+    {
+        return ruleBuilder.Custom((roles, context) =>
+        {
+            var existingRoles = Enum.GetNames(typeof(EmployeeRole)).ToHashSet();
+            
+            foreach(var role in roles)
+            {
+                if (!existingRoles.Contains(role))
+                    context.AddFailure($"Role {role} does not exist");
+            }
         });
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BugOsPos.Contracts.Authentication;
+﻿namespace BugOsPos.Contracts.CustomerAuthentication;
 
 public record CustomerRegisterRequest(
     int FranchiseId,

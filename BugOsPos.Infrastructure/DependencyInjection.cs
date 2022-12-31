@@ -17,13 +17,21 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddPersistence();
         services.AddAuthentication(configuration);
         
-        services.Configure<PasswordHasherSettings>(configuration.GetSection("PasswordHasherSettings"));
-        services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.Configure<PasswordProviderSettings>(configuration.GetSection("PasswordProviderSettings"));
+        services.AddScoped<IPasswordProvider, PasswordProvider>();
 
         services.AddSingleton<IClock, Clock>();
+        return services;
+    }
+
+    private static IServiceCollection AddPersistence(this IServiceCollection services)
+    {
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IGroupRepository, GroupRepository>();
         return services;
     }
 

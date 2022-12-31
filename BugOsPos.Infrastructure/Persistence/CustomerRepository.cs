@@ -4,9 +4,9 @@ using BugOsPos.Domain.CustomerAggregate.ValueObjects;
 
 namespace BugOsPos.Infrastructure.Persistence;
 
-public class CustomerRepository : ICustomerRepository
+public sealed class CustomerRepository : ICustomerRepository
 {
-    private static readonly List<Customer> _customers = new();
+    private static readonly List<Customer> _customers = PrefilledData.SampleCustomers();
 
     // If it was a db, we would get generated id from there.
     // Ideally, it would be better to have keys as GUID instead of ints (as it is required by the documentation).

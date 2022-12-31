@@ -5,7 +5,7 @@ namespace BugOsPos.Api.Attributes;
 
 public class AuthorizeRolesAttribute : AuthorizeAttribute
 {
-    public AuthorizeRolesAttribute(params EmployeeType[] roles) : base()
+    public AuthorizeRolesAttribute(params EmployeeRole[] roles) : base()
     {
         Roles = string.Join(',', roles);
     }

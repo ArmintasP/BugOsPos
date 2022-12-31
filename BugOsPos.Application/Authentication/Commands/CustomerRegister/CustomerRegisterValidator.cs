@@ -1,16 +1,16 @@
 ﻿using BugOsPos.Application.Common.Behaviors;
 using FluentValidation;
 
-namespace BugOsPos.Application.Authentication.Commands.Register;
+namespace BugOsPos.Application.Authentication.Commands.CustomerRegister;
 
-public sealed class CustomerRegisterValidator : AbstractValidator<CustomerRegisterCommand>
+public sealed class EmployeeRegisterValidator : AbstractValidator<CustomerRegisterCommand>
 {
     private const int MinUsernameLength = 4;
     private const int MaxUsernameLength = 12;
     private const int MinPasswordLength = 8;
     private const int MaxPasswordLength = 32;
 
-    public CustomerRegisterValidator()
+    public EmployeeRegisterValidator()
     {
         RuleFor(x => x.FranchiseId).NotEmpty();
         RuleFor(x => x.Username)
