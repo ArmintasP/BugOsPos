@@ -19,7 +19,7 @@ public class ApiController : ControllerBase
             .Select(claim => claim.Value)
             .FirstOrDefault();
     }
-    
+
     protected IActionResult Problem(List<Error> errors)
     {
         if (errors.Count is 0)
@@ -40,17 +40,19 @@ public class ApiController : ControllerBase
 
         foreach (var error in errors)
             modelStateDictionary.AddModelError(error.Code, error.Description);
-        
+
         return ValidationProblem(modelStateDictionary);
     }
 
     private IActionResult Problem(Error error)
     {
-        var statusCode = error.Type switch
+        var statusCode = (int)error.Type switch
         {
-            ErrorType.Conflict => StatusCodes.Status409Conflict,
-            ErrorType.Validation => StatusCodes.Status400BadRequest,
-            ErrorType.NotFound => StatusCodes.Status404NotFound,
+            (int)ErrorType.Conflict => StatusCodes.Status409Conflict,
+            (int)ErrorType.Validation => StatusCodes.Status400BadRequest,
+            (int)ErrorType.NotFound => StatusCodes.Status404NotFound,
+            (int)CustomErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
+            (int)CustomErrorType.Forbidden => StatusCodes.Status403Forbidden,
             _ => StatusCodes.Status500InternalServerError,
         };
 

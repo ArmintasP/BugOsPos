@@ -7,18 +7,20 @@ namespace BugOsPos.Infrastructure.Persistence;
 public sealed class CustomerRepository : ICustomerRepository
 {
     private static readonly List<Customer> _customers = PrefilledData.SampleCustomers();
+    private int _nextId = _customers.Count + 1;
 
     // If it was a db, we would get generated id from there.
     // Ideally, it would be better to have keys as GUID instead of ints (as it is required by the documentation).
     
     public CustomerId NextIdentity()
     {
-        return CustomerId.New(_customers.Count + 1);
+        return CustomerId.New(_nextId);
     }
 
     public Task Add(Customer customer)
     {
         _customers.Add(customer);
+        _nextId++;
         return Task.CompletedTask;
     }
 

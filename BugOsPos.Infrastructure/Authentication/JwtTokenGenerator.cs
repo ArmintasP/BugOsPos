@@ -43,10 +43,11 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             employee.EmployeeCode,
             employee.Name,
             employee.Surname);
+        claims.Add(new Claim(JwtSettings.EployeeClaim, JwtSettings.EployeeClaim));
 
         foreach (var type in employee.Roles)
             claims.Add(new Claim(ClaimTypes.Role, type.ToString()));
-
+        
         var token = GenerateToken(claims);
         return new JwtSecurityTokenHandler().WriteToken(token);
     }

@@ -43,5 +43,4 @@ public static class PrefilledData
             Group.New(GroupId.New(3), FranchiseId.New(2), "test3group", "group3 fran2"),
         };
     }
-
 }
