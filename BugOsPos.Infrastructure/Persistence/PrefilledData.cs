@@ -22,6 +22,8 @@ using BugOsPos.Domain.ProductAggregate;
 using BugOsPos.Domain.ProductAggregate.ValueObjects;
 using BugOsPos.Domain.ShiftAggregate;
 using BugOsPos.Domain.ShiftAggregate.ValueObjects;
+using System;
+using System.Collections.Generic;
 
 namespace BugOsPos.Infrastructure.Persistence;
 
@@ -81,48 +83,7 @@ public static class PrefilledData
         };
     }
 
-    public static List<Order> SampleOrders()
-    {
-        return new List<Order>()
-        {
-            Order.New(OrderId.New(1),CustomerId.New(1),EmployeeId.New(1),EmployeeId.New(1),LocationId.New(1),true),
-            Order.New(OrderId.New(2),CustomerId.New(2),EmployeeId.New(2),EmployeeId.New(2),LocationId.New(2),true),
-            Order.New(OrderId.New(3),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(3),LocationId.New(3),false),
-        };
-    }
-
-    public static List<Product> SampleProducts()
-    {
-        return new List<Product>()
-        {
-            Product.NewProduct(ProductId.New(1), FranchiseId.New(1),EmployeeId.New(1),DiscountId.New(1),CategoryId.New(1),"Banana",12,1,10),
-            Product.NewProduct(ProductId.New(2), FranchiseId.New(2),EmployeeId.New(2),DiscountId.New(2),CategoryId.New(2),"Apples",5,1,10),
-            Product.NewProduct(ProductId.New(3), FranchiseId.New(3),EmployeeId.New(3),DiscountId.New(3),CategoryId.New(3),"Pineapple",6,1,10),
-        };
-    }
-
-
-    public static List<LoyaltyCard> SampleLoyaltyCards()
-    {
-        return new List<LoyaltyCard>()
-        {
-           LoyaltyCard.New(LoyaltyCardId.New(1),CustomerId.New(1),"discount1"),
-           LoyaltyCard.New(LoyaltyCardId.New(2),CustomerId.New(2),"discount2"),
-           LoyaltyCard.New(LoyaltyCardId.New(3),CustomerId.New(3),"discount3"),
-        };
-    }
-
-    public static List<LoyaltyDiscount> SampleLoyaltyDiscounts()
-    {
-        return new List<LoyaltyDiscount>()
-        {
-           LoyaltyDiscount.New(LoyaltyDiscountId.New(1),LoyaltyCardId.New(1),ProductId.New(1),DiscountId.New(1)),
-           LoyaltyDiscount.New(LoyaltyDiscountId.New(2),LoyaltyCardId.New(2),ProductId.New(2),DiscountId.New(2)),
-           LoyaltyDiscount.New(LoyaltyDiscountId.New(3),LoyaltyCardId.New(3),ProductId.New(3),DiscountId.New(3)),
-        };
-    }
-
-    public static List<Category> SampleCategories()
+    internal static List<Category> SampleCategories()
     {
         return new List<Category>()
         {
@@ -130,10 +91,9 @@ public static class PrefilledData
            Category.New(CategoryId.New(2),"Hair","Extreme hairs",FranchiseId.New(2)),
            Category.New(CategoryId.New(3),"Food","Extreme food",FranchiseId.New(3)),
         };
-
     }
 
-    public static List<Discount> SampleDiscounts()
+    internal static List<Discount> SampleDiscounts()
     {
         return new List<Discount>()
         {
@@ -143,13 +103,53 @@ public static class PrefilledData
         };
     }
 
-    public static List<Franchise> SampleFrancises()
+    internal static List<Franchise> SampleFranchises()
     {
         return new List<Franchise>()
         {
             Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","Maxima","+370000000"),
             Franchise.New(FranchiseId.New(2),"tom.tomson@gmail.com","IKI","+370000000"),
             Franchise.New(FranchiseId.New(3),"tom.tomson@gmail.com","Lidl","+370000000"),
+        };
+    }
+
+    internal static List<LoyaltyCard> SampleLoyaltyCards()
+    {
+        return new List<LoyaltyCard>()
+        {
+           LoyaltyCard.New(LoyaltyCardId.New(1),CustomerId.New(1),"discount1"),
+           LoyaltyCard.New(LoyaltyCardId.New(2),CustomerId.New(2),"discount2"),
+           LoyaltyCard.New(LoyaltyCardId.New(3),CustomerId.New(3),"discount3"),
+        };
+    }
+
+    internal static List<LoyaltyDiscount> SampleLoyaltyDiscounts()
+    {
+        return new List<LoyaltyDiscount>()
+        {
+           LoyaltyDiscount.New(LoyaltyDiscountId.New(1),LoyaltyCardId.New(1),ProductId.New(1),DiscountId.New(1)),
+           LoyaltyDiscount.New(LoyaltyDiscountId.New(2),LoyaltyCardId.New(2),ProductId.New(2),DiscountId.New(2)),
+           LoyaltyDiscount.New(LoyaltyDiscountId.New(3),LoyaltyCardId.New(3),ProductId.New(3),DiscountId.New(3)),
+        };
+    }
+
+    internal static List<Order> SampleOrders()
+    {
+        return new List<Order>()
+        {
+            Order.New(OrderId.New(1),CustomerId.New(1),EmployeeId.New(1),EmployeeId.New(1),LocationId.New(1),true),
+            Order.New(OrderId.New(2),CustomerId.New(2),EmployeeId.New(2),EmployeeId.New(2),LocationId.New(2),true),
+            Order.New(OrderId.New(3),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(3),LocationId.New(3),false),
+        };
+    }
+
+    internal static List<Product> SampleProducts()
+    {
+        return new List<Product>()
+        {
+            Product.NewProduct(ProductId.New(1), FranchiseId.New(1),EmployeeId.New(1),DiscountId.New(1),CategoryId.New(1),"Banana",12,1,10),
+            Product.NewProduct(ProductId.New(2), FranchiseId.New(2),EmployeeId.New(2),DiscountId.New(2),CategoryId.New(2),"Apples",5,1,10),
+            Product.NewProduct(ProductId.New(3), FranchiseId.New(3),EmployeeId.New(3),DiscountId.New(3),CategoryId.New(3),"Pineapple",6,1,10),
         };
     }
 }
