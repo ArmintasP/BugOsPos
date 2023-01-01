@@ -31,10 +31,10 @@ public sealed class GetLocationByIdQueryHandler : IRequestHandler<GetLocationByI
 
     public async Task<ErrorOr<GetLocationByIdResult>> Handle(GetLocationByIdQuery request, CancellationToken cancellationToken)
     {
-        var customer = await _locationRepository.GetLocationById(LocationId.New(request.Id));
-        if (customer is null)
+        var location = await _locationRepository.GetLocationById(LocationId.New(request.Id));
+        if (location is null)
             return Errors.Location.NotFound;
 
-        return new GetLocationByIdResult(customer);
+        return new GetLocationByIdResult(location);
     }
 }

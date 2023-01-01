@@ -36,4 +36,18 @@ public class LocationsController : ApiController
             result => Ok(_mapper.Map<GetLocationByIdResponse>(result)),
             errors => Problem(errors));
     }
+
+    [HttpPut("locations/{id}")]
+    public async Task<IActionResult> UpdateLocation(int id, UpdateLocationRequest request)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Errors.Employee.Forbidden });
+
+        var command = _mapper.Map<UpdateLocationCommand>((id,request));
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<UpdateLocationResponse>(result)),
+            errors => Problem(errors));
+    }
 }
