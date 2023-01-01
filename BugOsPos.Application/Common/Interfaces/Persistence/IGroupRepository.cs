@@ -7,5 +7,6 @@ public interface IGroupRepository
 {
     GroupId NextIdentity();
     Task<Group?> GetGroupById(GroupId id);
+    Task Update(Group group);
     Task Add(Group group);
 }

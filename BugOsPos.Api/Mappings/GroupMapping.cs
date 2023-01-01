@@ -16,5 +16,7 @@ public sealed class GroupMapping : IRegister
 
         config.NewConfig<GetGroupByIdResult, GetGroupByIdResponse>()
             .Map(dest => dest.Group, src => src.Group);
+        config.NewConfig<UpdateGroupResult, UpdateGroupResponse>()
+            .Map(dest => dest.Group, src => src.Group);
     }
 }

@@ -1,5 +1,7 @@
-﻿using BugOsPos.Application.Groups;
+﻿using BugOsPos.Api.Attributes;
+using BugOsPos.Application.Groups;
 using BugOsPos.Contracts.Groups;
+using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;
@@ -19,8 +21,10 @@ public sealed  class GroupsController : ApiController
         _mediator = mediator;
     }
 
-    [HttpPost("groups/{id}")]
-
+    /// <summary>
+    /// Updates a Group specified by id. Requires a session of a Manager belonging to the Franchise. 
+    /// </summary>
+    [HttpGet("groups/{id}")]
     public async Task<IActionResult> GetGroupById(int id)
     {
         if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
@@ -36,6 +40,27 @@ public sealed  class GroupsController : ApiController
 
         return result.Match(
             result => Ok(_mapper.Map<GetGroupByIdResponse>(result)),
+            errors => Problem(errors));
+    }
+
+    /// <summary>
+    /// Updates a Group specified by id. Requires a session of a Manager belonging to the Franchise. 
+    /// </summary>
+    [HttpPut("groups/{id}")]
+    [AuthorizeRoles(EmployeeRole.Manager)]
+    public async Task<IActionResult> UpdateGroup(int id, string name, string description)
+    {
+        if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.FranchiseIdMissing });
+
+        if (!int.TryParse(franchiseIdString, out var franchiseId))
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.InvalidFranchiseId });
+
+        var command = new UpdateGroupCommand(id, franchiseId, name, description);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<UpdateGroupResponse>(result)),
             errors => Problem(errors));
     }
 }
