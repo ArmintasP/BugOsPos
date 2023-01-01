@@ -50,12 +50,15 @@ public sealed class EmployeeMapping : IRegister
             .Map(dest => dest.End, src => src.End)
             .IgnoreNonMapped(true);
 
-        config.NewConfig<CourierOrdersResult, CourierOrdersResponse>();
+        config.NewConfig<CourierOrdersResult, CourierOrdersResponse>()
+            .Map(dest => dest.Orders, src => src.orders);
+        
         config.NewConfig<Order, OrderSection>()
             .Map(dest => dest.Status, src => src.Status.ToString())
             .Map(dest => dest.Id, src => src.Id.Value)
             .Map(dest => dest.LocationId, src => src.LocationId.Value)
             .Map(dest => dest.CustomerId, src => src.CustomerId.Get())
+            .Map(dest => dest.CashierId, src => src.CashierId.Get())
             .Map(dest => dest.CourierId, src => src.CourierId.Get())
             .Map(dest => dest.PaymentId, src => src.Payment.GetId());
 

@@ -40,6 +40,7 @@ public sealed class OrderRepository : IOrderRepository
     public Task<IEnumerable<Order>> GetOrdersByCourierId(EmployeeId id)
     {
         var orders = _orders.Where(order => id.Equals(order.CourierId));
+
         return Task.FromResult(orders);
     }
 }
