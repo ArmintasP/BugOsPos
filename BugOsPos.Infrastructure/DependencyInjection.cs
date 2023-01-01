@@ -34,6 +34,13 @@ public static class DependencyInjection
         services.AddScoped<IGroupRepository, GroupRepository>();
         services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<IShiftRepository, ShiftRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<ILoyaltyDiscountRepository, LoyaltyDiscountRepository>();
+        services.AddScoped<ILoyaltyCardRepository, LoyaltyCardRepository>();
+        services.AddScoped<IFranchiseRepository, FranchiseRepository>();
+        services.AddScoped<IDiscountRepository, DiscountRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         return services;
     }

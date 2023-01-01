@@ -1,12 +1,19 @@
-﻿using BugOsPos.Domain.CustomerAggregate;
+﻿using BugOsPos.Domain.CategoryAggregate;
+using BugOsPos.Domain.CustomerAggregate;
 using BugOsPos.Domain.CustomerAggregate.ValueObjects;
+using BugOsPos.Domain.DiscountAggregate;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
+using BugOsPos.Domain.FranchiseAggregate;
 using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.GroupAggregate;
 using BugOsPos.Domain.GroupAggregate.ValueObjects;
 using BugOsPos.Domain.LocationAggregate;
 using BugOsPos.Domain.LocationAggregate.ValueObjects;
+using BugOsPos.Domain.LoyaltyCardAggregate;
+using BugOsPos.Domain.LoyaltyDiscountAggregate;
+using BugOsPos.Domain.OrderAggregate;
+using BugOsPos.Domain.ProductAggregate;
 using BugOsPos.Domain.ShiftAggregate;
 using BugOsPos.Domain.ShiftAggregate.ValueObjects;
 
@@ -66,5 +73,40 @@ public static class PrefilledData
             Shift.New(ShiftId.New(2), EmployeeId.New(2), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(2), GroupId.New(2)),
             Shift.New(ShiftId.New(3), EmployeeId.New(3), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(3), GroupId.New(3)),
         };
+    }
+
+    internal static List<Category> SampleCategories()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static List<Discount> SampleDiscounts()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static List<Franchise> SampleFranchises()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static List<LoyaltyCard> SampleLoyaltyCards()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static List<LoyaltyDiscount> SampleLoyaltyDiscounts()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static List<Order> SampleOrders()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static List<Product> SampleProducts()
+    {
+        throw new NotImplementedException();
     }
 }

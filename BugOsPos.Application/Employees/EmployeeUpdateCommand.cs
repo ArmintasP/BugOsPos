@@ -1,5 +1,4 @@
-﻿using BugOsPos.Application.Common.Behaviors;
-using BugOsPos.Application.Common.Interfaces.Authentication;
+﻿using BugOsPos.Application.Common.Interfaces.Authentication;
 using BugOsPos.Application.Common.Interfaces.Clock;
 using BugOsPos.Application.Common.Interfaces.Persistence;
 using BugOsPos.Domain.Common.ErrorsCollection;
