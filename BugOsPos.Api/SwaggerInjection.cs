@@ -41,6 +41,18 @@ public static class SwaggerInjection
 
             options.DescribeAllParametersInCamelCase();
 
+            options.MapType<DateTime>(() => new OpenApiSchema
+            {
+                Type = "string",
+                Example = new OpenApiString("2018-08-18T07:22:16.0000000Z")
+            });
+
+            options.MapType<DateOnly>(() => new OpenApiSchema
+            {
+                Type = "string",
+                Example = new OpenApiString("2018-08-18")
+            });
+
             options.MapType<TimeSpan>(() => new OpenApiSchema
             {
                 Type = "string",

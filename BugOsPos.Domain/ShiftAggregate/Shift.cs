@@ -9,17 +9,17 @@ namespace BugOsPos.Domain.ShiftAggregate;
 public sealed class Shift : AggregateRoot<ShiftId>
 {
     public EmployeeId EmployeeId { get; }
-    public LocationId? LocationId { get; }
+    public LocationId LocationId { get; }
     public GroupId? GroupId { get; }
     public DateTime Start { get; }
     public DateTime End { get; }
-
+    
     private Shift(
         ShiftId id,
         EmployeeId employeeId,
         DateTime start,
         DateTime end,
-        LocationId? locationId,
+        LocationId locationId,
         GroupId? groupId)
         : base(id)
     {
@@ -35,7 +35,7 @@ public sealed class Shift : AggregateRoot<ShiftId>
         EmployeeId employeeId,
         DateTime start,
         DateTime end,
-        LocationId? locationId,
+        LocationId locationId,
         GroupId? groupId)
     {
         return new Shift(

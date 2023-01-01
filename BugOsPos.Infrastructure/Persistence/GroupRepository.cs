@@ -21,9 +21,9 @@ public sealed class GroupRepository : IGroupRepository
         return Task.CompletedTask;
     }
     
-    public Task<Group?> GetGroupById(int id)
+    public Task<Group?> GetGroupById(GroupId id)
     {
-        var group = _groups.FirstOrDefault(group => group.Id.Value == id);
+        var group = _groups.FirstOrDefault(group => group.Id == id);
         return Task.FromResult(group);
     }
 

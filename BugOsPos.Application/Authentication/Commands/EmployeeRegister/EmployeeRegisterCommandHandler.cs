@@ -4,6 +4,7 @@ using BugOsPos.Domain.Common.ErrorsCollection;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.GroupAggregate;
+using BugOsPos.Domain.GroupAggregate.ValueObjects;
 using ErrorOr;
 using MediatR;
 
@@ -33,7 +34,7 @@ public sealed class EmployeeRegisterCommandHandler :
         Group? group = null;
         if (request.GroupId is int groupId)
         {
-            group = await _groupRepository.GetGroupById(groupId);
+            group = await _groupRepository.GetGroupById(GroupId.New(groupId));
             if (group is null)
                 return Errors.Group.NonExistentId;
         } 

@@ -5,6 +5,10 @@ using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
 using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.GroupAggregate;
 using BugOsPos.Domain.GroupAggregate.ValueObjects;
+using BugOsPos.Domain.LocationAggregate;
+using BugOsPos.Domain.LocationAggregate.ValueObjects;
+using BugOsPos.Domain.ShiftAggregate;
+using BugOsPos.Domain.ShiftAggregate.ValueObjects;
 
 namespace BugOsPos.Infrastructure.Persistence;
 
@@ -41,6 +45,26 @@ public static class PrefilledData
             Group.New(GroupId.New(1), FranchiseId.New(1), "test1group", "group1 fran1"),
             Group.New(GroupId.New(2), FranchiseId.New(1), "test2group", "group2 fran1"),
             Group.New(GroupId.New(3), FranchiseId.New(2), "test3group", "group3 fran2"),
+        };
+    }
+
+    public static List<Location> SampleLocations()
+    {
+        return new List<Location>()
+        {
+            Location.New(LocationId.New(1), "Shop96", "1 Evergreen St, New York"),
+            Location.New(LocationId.New(2), "MakuDonardo", "2 Evergreen St, New York"),
+            Location.New(LocationId.New(3), "CFK", "3 Evergreen St, New York"),
+        };
+    }
+
+    public static List<Shift> SampleShifts()
+    {
+        return new List<Shift>()
+        {
+            Shift.New(ShiftId.New(1), EmployeeId.New(1), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(1), GroupId.New(1)),
+            Shift.New(ShiftId.New(2), EmployeeId.New(2), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(2), GroupId.New(2)),
+            Shift.New(ShiftId.New(3), EmployeeId.New(3), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(3), GroupId.New(3)),
         };
     }
 }

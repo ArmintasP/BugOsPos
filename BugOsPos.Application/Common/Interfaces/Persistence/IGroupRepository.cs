@@ -6,6 +6,6 @@ namespace BugOsPos.Application.Common.Interfaces.Persistence;
 public interface IGroupRepository
 {
     GroupId NextIdentity();
-    Task<Group?> GetGroupById(int id);
+    Task<Group?> GetGroupById(GroupId id);
     Task Add(Group group);
 }

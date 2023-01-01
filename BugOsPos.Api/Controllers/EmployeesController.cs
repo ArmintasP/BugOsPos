@@ -3,6 +3,7 @@ using BugOsPos.Application.Authentication.Commands.EmployeeRegister;
 using BugOsPos.Application.Authentication.Queries.EmployeeLogin;
 using BugOsPos.Application.Employees;
 using BugOsPos.Contracts.EmployeeAuthentication;
+using BugOsPos.Contracts.Employees;
 using BugOsPos.Domain.Common.ErrorsCollection;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Infrastructure.Authentication;
@@ -43,25 +44,25 @@ public sealed class EmployeesController : ApiController
             errors => Problem(errors));
     }
 
-    //[HttpPut("employees/{id}")]
-    //public async Task<IActionResult> Update(int id, EmployeeUpdateRequest request)
-    //{
-    //    if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var employeeId))
-    //        return Problem(new() { Errors.Employee.Forbidden });
+    [HttpPut("employees/{id}")]
+    public async Task<IActionResult> Update(int id, EmployeeUpdateRequest request)
+    {
+        if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var employeeId))
+            return Problem(new() { Errors.Employee.Forbidden });
 
-    //    if (employeeId != id)
-    //        return Problem(new() { Errors.Employee.Forbidden });
+        if (employeeId != id)
+            return Problem(new() { Errors.Employee.Forbidden });
 
-    //    if (GetClaimValue(JwtSettings.EployeeClaim) is null)
-    //        return Problem(new() { Errors.Employee.Forbidden });
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Errors.Employee.Forbidden });
 
-    //    var query = _mapper.Map<EmployeeUpdateQuery>((id, request));
-    //    var result = await _mediator.Send(query);
+        var query = _mapper.Map<EmployeeUpdateCommand>((id, request));
+        var result = await _mediator.Send(query);
 
-    //    return result.Match(
-    //        result => Ok(_mapper.Map<EmployeeUpdateResponse>(result)),
-    //        errors => Problem(errors));
-    //}
+        return result.Match(
+            result => Ok(_mapper.Map<EmployeeUpdateResponse>(result)),
+            errors => Problem(errors));
+    }
 
     [HttpPost("employees/login")]
     [AllowAnonymous]

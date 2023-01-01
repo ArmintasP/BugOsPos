@@ -7,6 +7,7 @@ public interface IEmployeeRepository
 {
     EmployeeId NextIdentity();
     Task Add(Employee employee);
+    Task Update(Employee employee);
     Task Delete(EmployeeId employeeId);
     Task<Employee?> GetEmployeeById(EmployeeId employeeId);
     Task<Employee?> GetEmployeeByEmployeeCode(string code, int franchiseId);

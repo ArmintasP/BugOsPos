@@ -1,7 +1,6 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
-using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 
 namespace BugOsPos.Infrastructure.Persistence;
 
@@ -43,5 +42,12 @@ public sealed class EmployeeRepository : IEmployeeRepository
             e => e.Id == employeeId);
 
         return Task.FromResult(employee);
+    }
+    
+    public Task Update(Employee employee)
+    {
+        var index = _employees.FindIndex(c => c.Id == employee.Id);
+        _employees[index] = employee;
+        return Task.CompletedTask;
     }
 }

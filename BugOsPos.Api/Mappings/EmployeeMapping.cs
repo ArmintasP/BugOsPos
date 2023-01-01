@@ -1,12 +1,17 @@
 ﻿using BugOsPos.Application.Authentication.Commands.EmployeeRegister;
 using BugOsPos.Application.Authentication.Queries.CustomerLogin;
 using BugOsPos.Application.Authentication.Queries.EmployeeLogin;
+using BugOsPos.Application.Employees;
 using BugOsPos.Contracts.EmployeeAuthentication;
+using BugOsPos.Contracts.Employees;
+using BugOsPos.Domain.ShiftAggregate;
+using BugOsPos.Domain.ShiftAggregate.ValueObjects;
 using Mapster;
+using MediatR;
 
 namespace BugOsPos.Api.Mappings;
 
-public sealed class EmployeeAuthenticationMapping : IRegister
+public sealed class EmployeeMapping : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
@@ -24,5 +29,22 @@ public sealed class EmployeeAuthenticationMapping : IRegister
 
         config.NewConfig<EmployeeLoginRequest, EmployeeLoginQuery>();
         config.NewConfig<EmployeeLoginResult, EmployeeLoginResponse>();
+
+        config.NewConfig<ShiftSectionRequest, ShiftSection>();
+        config.NewConfig<(int id, EmployeeUpdateRequest request), EmployeeUpdateCommand>()
+            .Map(dest => dest.Id, src => src.id)
+            .Map(dest => dest, src => src.request);
+
+
+        config.NewConfig<EmployeeUpdateResult, EmployeeUpdateResponse>()
+            .Map(dest => dest.Shifts, src => src.Shifts)
+            .Map(dest => dest, src => src.Employee);
+
+        config.NewConfig<Shift, ShiftSectionResponse>()
+            .Map(dest => dest.Id, src => src.Id.Value)
+            .Map(dest => dest.LocationId, src => src.LocationId.Value)
+            .Map(dest => dest.Start, src => src.Start)
+            .Map(dest => dest.End, src => src.End)
+            .IgnoreNonMapped(true);
     }
 }
