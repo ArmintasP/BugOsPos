@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BugOsPos.Api.Controllers;
 
-[ApiController]
-public sealed  class GroupsController : ApiController
+public sealed class GroupsController : ApiController
 {
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
@@ -34,8 +33,8 @@ public sealed  class GroupsController : ApiController
             return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.FranchiseIdMissing });
         if (!int.TryParse(franchiseIdString, out var franchiseId))
             return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.InvalidFranchiseId });
-        
-        var query =  new GetGroupByIdQuery(id, franchiseId);
+
+        var query = new GetGroupByIdQuery(id, franchiseId);
         var result = await _mediator.Send(query);
 
         return result.Match(

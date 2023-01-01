@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BugOsPos.Api.Controllers;
 
-[ApiController]
-public class LocationsController : ApiController
+public sealed class LocationsController : ApiController
 {
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
