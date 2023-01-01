@@ -43,6 +43,27 @@ public sealed class GroupsController : ApiController
     }
 
     /// <summary>
+    /// Creates a new Group. Requires a session of a Manager belonging to the Franchise. 
+    /// </summary>
+    [HttpPost("groups/")]
+    [AuthorizeRoles(EmployeeRole.Manager)]
+    public async Task<IActionResult> CreateGroup(string name, string description)
+    {
+        if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.FranchiseIdMissing });
+
+        if (!int.TryParse(franchiseIdString, out var franchiseId))
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.InvalidFranchiseId });
+        
+        var command = new CreateGroupCommand(franchiseId, name, description);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<CreateGroupResponse>(result)),
+            errors => Problem(errors));
+    }
+
+    /// <summary>
     /// Updates a Group specified by id. Requires a session of a Manager belonging to the Franchise. 
     /// </summary>
     [HttpPut("groups/{id}")]

@@ -22,5 +22,8 @@ public sealed class GroupMapping : IRegister
 
         config.NewConfig<GetGroupEmployeesResult, GetGroupEmployeesResponse>()
             .Map(dest => dest, src => src.Employees);
+
+        config.NewConfig<CreateGroupResult, CreateGroupResponse>()
+            .Map(dest => dest.Group, src => src.Group);
     }
 }
