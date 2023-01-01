@@ -4,6 +4,9 @@ using BugOsPos.Application.Authentication.Queries.EmployeeLogin;
 using BugOsPos.Application.Employees;
 using BugOsPos.Contracts.EmployeeAuthentication;
 using BugOsPos.Contracts.Employees;
+using BugOsPos.Domain.Common.Models;
+using BugOsPos.Domain.OrderAggregate;
+using BugOsPos.Domain.OrderAggregate.Entities;
 using BugOsPos.Domain.ShiftAggregate;
 using BugOsPos.Domain.ShiftAggregate.ValueObjects;
 using Mapster;
@@ -46,5 +49,22 @@ public sealed class EmployeeMapping : IRegister
             .Map(dest => dest.Start, src => src.Start)
             .Map(dest => dest.End, src => src.End)
             .IgnoreNonMapped(true);
+
+        config.NewConfig<CourierOrdersResult, CourierOrdersResponse>();
+        config.NewConfig<Order, OrderSection>()
+            .Map(dest => dest.Status, src => src.Status.ToString())
+            .Map(dest => dest.Id, src => src.Id.Value)
+            .Map(dest => dest.LocationId, src => src.LocationId.Value)
+            .Map(dest => dest.CustomerId, src => src.CustomerId.Get())
+            .Map(dest => dest.CourierId, src => src.CourierId.Get())
+            .Map(dest => dest.PaymentId, src => src.Payment.GetId());
+
+        config.NewConfig<OrderItem, OrderItemSection>()
+            .Map(dest => dest.Status, src => src.Status.ToString())
+            .Map(dest => dest.Id, src => src.Id.Value)
+            .Map(dest => dest.DiscountId, src => src.DiscountId.Get())
+            .Map(dest => dest.ProductId, src => src.ProductId.Get());
+
+
     }
 }

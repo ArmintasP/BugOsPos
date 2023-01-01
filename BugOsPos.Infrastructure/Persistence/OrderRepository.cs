@@ -1,4 +1,5 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
+using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
 using BugOsPos.Domain.OrderAggregate;
 using BugOsPos.Domain.OrderAggregate.ValueObjects;
 
@@ -14,25 +15,31 @@ public sealed class OrderRepository : IOrderRepository
         return OrderId.New(_nextId);
     }
 
-    public Task Add(Order Order)
+    public Task Add(Order order)
     {
-        _orders.Add(Order);
+        _orders.Add(order);
         _nextId++;
         return Task.CompletedTask;
     }
 
     public Task<Order?> GetOrderById(OrderId id)
     {
-        var Order = _orders.SingleOrDefault(
+        var order = _orders.SingleOrDefault(
             e => e.Id == id);
 
-        return Task.FromResult(Order);
+        return Task.FromResult(order);
     }
 
-    public Task Update(Order Order)
+    public Task Update(Order order)
     {
-        var index = _orders.FindIndex(p => p.Id == Order.Id);
-        _orders[index] = Order;
+        var index = _orders.FindIndex(p => p.Id == order.Id);
+        _orders[index] = order;
         return Task.CompletedTask;
+    }
+
+    public Task<IEnumerable<Order>> GetOrdersByCourierId(EmployeeId id)
+    {
+        var orders = _orders.Where(order => id.Equals(order.CourierId));
+        return Task.FromResult(orders);
     }
 }
