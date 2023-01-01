@@ -1,12 +1,25 @@
-﻿using BugOsPos.Domain.CustomerAggregate;
+﻿using BugOsPos.Domain.CategoryAggregate;
+using BugOsPos.Domain.CategoryAggregate.ValueObjects;
+using BugOsPos.Domain.CustomerAggregate;
 using BugOsPos.Domain.CustomerAggregate.ValueObjects;
+using BugOsPos.Domain.DiscountAggregate;
+using BugOsPos.Domain.DiscountAggregate.ValueObjects;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
+using BugOsPos.Domain.FranchiseAggregate;
 using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.GroupAggregate;
 using BugOsPos.Domain.GroupAggregate.ValueObjects;
 using BugOsPos.Domain.LocationAggregate;
 using BugOsPos.Domain.LocationAggregate.ValueObjects;
+using BugOsPos.Domain.LoyaltyCardAggregate;
+using BugOsPos.Domain.LoyaltyCardAggregate.ValueObjects;
+using BugOsPos.Domain.LoyaltyDiscountAggregate;
+using BugOsPos.Domain.LoyaltyDiscountAggregate.ValueObjects;
+using BugOsPos.Domain.OrderAggregate;
+using BugOsPos.Domain.OrderAggregate.ValueObjects;
+using BugOsPos.Domain.ProductAggregate;
+using BugOsPos.Domain.ProductAggregate.ValueObjects;
 using BugOsPos.Domain.ShiftAggregate;
 using BugOsPos.Domain.ShiftAggregate.ValueObjects;
 
@@ -65,6 +78,78 @@ public static class PrefilledData
             Shift.New(ShiftId.New(1), EmployeeId.New(1), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(1), GroupId.New(1)),
             Shift.New(ShiftId.New(2), EmployeeId.New(2), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(2), GroupId.New(2)),
             Shift.New(ShiftId.New(3), EmployeeId.New(3), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(3), GroupId.New(3)),
+        };
+    }
+
+    public static List<Order> SampleOrders()
+    {
+        return new List<Order>()
+        {
+            Order.New(OrderId.New(1),CustomerId.New(1),EmployeeId.New(1),EmployeeId.New(1),LocationId.New(1),true),
+            Order.New(OrderId.New(2),CustomerId.New(2),EmployeeId.New(2),EmployeeId.New(2),LocationId.New(2),true),
+            Order.New(OrderId.New(3),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(3),LocationId.New(3),false),
+        };
+    }
+
+    public static List<Product> SampleProducts()
+    {
+        return new List<Product>()
+        {
+            Product.NewProduct(ProductId.New(1), FranchiseId.New(1),EmployeeId.New(1),DiscountId.New(1),CategoryId.New(1),"Banana",12,1,10),
+            Product.NewProduct(ProductId.New(2), FranchiseId.New(2),EmployeeId.New(2),DiscountId.New(2),CategoryId.New(2),"Apples",5,1,10),
+            Product.NewProduct(ProductId.New(3), FranchiseId.New(3),EmployeeId.New(3),DiscountId.New(3),CategoryId.New(3),"Pineapple",6,1,10),
+        };
+    }
+
+
+    public static List<LoyaltyCard> SampleLoyaltyCards()
+    {
+        return new List<LoyaltyCard>()
+        {
+           LoyaltyCard.New(LoyaltyCardId.New(1),CustomerId.New(1),"discount1"),
+           LoyaltyCard.New(LoyaltyCardId.New(2),CustomerId.New(2),"discount2"),
+           LoyaltyCard.New(LoyaltyCardId.New(3),CustomerId.New(3),"discount3"),
+        };
+    }
+
+    public static List<LoyaltyDiscount> SampleLoyaltyDiscounts()
+    {
+        return new List<LoyaltyDiscount>()
+        {
+           LoyaltyDiscount.New(LoyaltyDiscountId.New(1),LoyaltyCardId.New(1),ProductId.New(1),DiscountId.New(1)),
+           LoyaltyDiscount.New(LoyaltyDiscountId.New(2),LoyaltyCardId.New(2),ProductId.New(2),DiscountId.New(2)),
+           LoyaltyDiscount.New(LoyaltyDiscountId.New(3),LoyaltyCardId.New(3),ProductId.New(3),DiscountId.New(3)),
+        };
+    }
+
+    public static List<Category> SampleCategories()
+    {
+        return new List<Category>()
+        {
+           Category.New(CategoryId.New(1),"Sports","Extreme sports",FranchiseId.New(1)),
+           Category.New(CategoryId.New(2),"Hair","Extreme hairs",FranchiseId.New(2)),
+           Category.New(CategoryId.New(3),"Food","Extreme food",FranchiseId.New(3)),
+        };
+
+    }
+
+    public static List<Discount> SampleDiscounts()
+    {
+        return new List<Discount>()
+        {
+            Discount.New(DiscountId.New(1),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
+            Discount.New(DiscountId.New(2),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
+            Discount.New(DiscountId.New(3),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
+        };
+    }
+
+    public static List<Franchise> SampleFrancises()
+    {
+        return new List<Franchise>()
+        {
+            Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","Maxima","+370000000"),
+            Franchise.New(FranchiseId.New(2),"tom.tomson@gmail.com","IKI","+370000000"),
+            Franchise.New(FranchiseId.New(3),"tom.tomson@gmail.com","Lidl","+370000000"),
         };
     }
 }
