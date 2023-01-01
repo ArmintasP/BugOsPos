@@ -9,9 +9,9 @@ using MediatR;
 
 namespace BugOsPos.Application.Groups;
 
-public sealed record GetGroupByIdQuery(int Id, int FranchiseId) : IRequest<ErrorOr<GetGroupResult>>;
+public sealed record GetGroupByIdQuery(int Id, int FranchiseId) : IRequest<ErrorOr<GetGroupByIdResult>>;
 
-public sealed record GetGroupResult(Group Group);
+public sealed record GetGroupByIdResult(Group Group);
 
 public sealed class GetGroupByIdValidator : AbstractValidator<GetGroupByIdQuery>
 {
@@ -22,7 +22,7 @@ public sealed class GetGroupByIdValidator : AbstractValidator<GetGroupByIdQuery>
     }
 }
 
-public sealed class GetGroupByIdQueryHandler : IRequestHandler<GetGroupByIdQuery, ErrorOr<GetGroupResult>>
+public sealed class GetGroupByIdQueryHandler : IRequestHandler<GetGroupByIdQuery, ErrorOr<GetGroupByIdResult>>
 {
     private readonly IGroupRepository _groupRepository;
 
@@ -31,7 +31,7 @@ public sealed class GetGroupByIdQueryHandler : IRequestHandler<GetGroupByIdQuery
         _groupRepository = groupRepository;
     }
 
-    public async Task<ErrorOr<GetGroupResult>> Handle(GetGroupByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<GetGroupByIdResult>> Handle(GetGroupByIdQuery request, CancellationToken cancellationToken)
     {
         var groupId = GroupId.New(request.Id);
         var franchiseId = FranchiseId.New(request.FranchiseId);
@@ -42,6 +42,6 @@ public sealed class GetGroupByIdQueryHandler : IRequestHandler<GetGroupByIdQuery
             return Domain.Common.ErrorsCollection.Errors.Group.BadFranchiseId;
         }
         
-        return new GetGroupResult(group);
+        return new GetGroupByIdResult(group);
     }
 }

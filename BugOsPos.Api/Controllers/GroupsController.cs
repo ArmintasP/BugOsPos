@@ -1,4 +1,5 @@
 ﻿using BugOsPos.Application.Groups;
+using BugOsPos.Contracts.Groups;
 using BugOsPos.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;
