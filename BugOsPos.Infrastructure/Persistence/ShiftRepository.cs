@@ -1,4 +1,5 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
+using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
 using BugOsPos.Domain.ShiftAggregate;
 using BugOsPos.Domain.ShiftAggregate.ValueObjects;
 
@@ -27,5 +28,12 @@ public sealed class ShiftRepository : IShiftRepository
         _shifts.Add(shift);
         _nextId++;
         return Task.CompletedTask;
+    }
+
+    public Task<IEnumerable<Shift>> GetShiftsByEmployeeId(EmployeeId id)
+    {
+        var shifts = _shifts.Where(e => e.EmployeeId == id);
+
+        return Task.FromResult(shifts);
     }
 }

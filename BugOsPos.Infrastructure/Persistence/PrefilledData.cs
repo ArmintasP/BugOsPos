@@ -47,7 +47,7 @@ public static class PrefilledData
     {
         return new List<Employee>()
         {
-            Employee.New(EmployeeId.New(1), "11", HashedPassword, Salt, FranchiseId.New(1), groupId: null, 0, "aa@gmail.com", "Adam", "Smith", "+1223457855", "6 Nottingham Rd, Selby", "GB24BKEN10000031510604", 1, new List<EmployeeRole>() { EmployeeRole.Manager } , new DateOnly(1999, 10, 10)),
+            Employee.New(EmployeeId.New(1), "11", HashedPassword, Salt, FranchiseId.New(1), GroupId.New(1), 0, "aa@gmail.com", "Adam", "Smith", "+1223457855", "6 Nottingham Rd, Selby", "GB24BKEN10000031510604", 1, new List<EmployeeRole>() { EmployeeRole.Manager } , new DateOnly(1999, 10, 10)),
             Employee.New(EmployeeId.New(2), "12", HashedPassword, Salt, FranchiseId.New(1), GroupId.New(1), 0, "bb@gmail.com", "Babam", "Smith", "+555555566", "999 Nottingham Rd, Selby", "GB24BKEN99990031510604", 0.8m, new List<EmployeeRole>() { EmployeeRole.Cashier, EmployeeRole.Specialist } , new DateOnly(2000, 02, 02)),
             Employee.New(EmployeeId.New(3), "13", HashedPassword, Salt, FranchiseId.New(1), groupId: null, 0, "zz@gmail.com", "Zen", "Smith", "+1111111111", "000 Nottingham Rd, Selby", "HK912FFF98890011540321", 1, new List<EmployeeRole>() { EmployeeRole.Cashier } , new DateOnly(2001, 01, 01)),
             Employee.New(EmployeeId.New(4), "14", HashedPassword, Salt, FranchiseId.New(1), groupId: null, 0, "zz@gmail.com", "Zen", "Smith", "+1111111111", "000 Nottingham Rd, Selby", "HK912FFF98890011540321", 1, new List<EmployeeRole>() { EmployeeRole.Courier } , new DateOnly(2001, 01, 01)),
@@ -78,9 +78,9 @@ public static class PrefilledData
     {
         return new List<Shift>()
         {
-            Shift.New(ShiftId.New(1), EmployeeId.New(1), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(1), GroupId.New(1)),
-            Shift.New(ShiftId.New(2), EmployeeId.New(2), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(2), GroupId.New(2)),
-            Shift.New(ShiftId.New(3), EmployeeId.New(3), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 10, 10, 10, 10, 10), LocationId.New(3), GroupId.New(3)),
+            Shift.New(ShiftId.New(1), EmployeeId.New(1), new DateTime(2020, 10, 10, 10, 10, 10), new DateTime(2020, 11, 11, 10, 10, 10), LocationId.New(1), GroupId.New(1)),
+            Shift.New(ShiftId.New(2), EmployeeId.New(2), new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 11, 10, 10, 10), LocationId.New(2), GroupId.New(2)),
+            Shift.New(ShiftId.New(3), EmployeeId.New(3), new DateTime(2022, 10, 10, 10, 10, 10), new DateTime(2022, 11, 11, 10, 10, 10), LocationId.New(3), GroupId.New(3)),
         };
     }
 
