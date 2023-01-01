@@ -63,4 +63,27 @@ public sealed  class GroupsController : ApiController
             result => Ok(_mapper.Map<UpdateGroupResponse>(result)),
             errors => Problem(errors));
     }
+
+    /// <summary>
+    /// Gets the associated Employees. Requires a session of Employee belonging to the Franchise associated with that Group.
+    /// </summary>
+    [HttpGet("groups/{id}/employees")]
+    public async Task<IActionResult> GetGroupEmployees(int id)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Employee.Forbidden });
+
+        if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.FranchiseIdMissing });
+
+        if (!int.TryParse(franchiseIdString, out var franchiseId))
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Authentication.InvalidFranchiseId });
+
+        var query = new GetGroupEmployeesQuery(id, franchiseId);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            result => Ok(_mapper.Map<GetGroupEmployeesResponse>(result)),
+            errors => Problem(errors));
+    }
 }
