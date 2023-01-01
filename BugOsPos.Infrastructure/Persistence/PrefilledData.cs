@@ -39,7 +39,7 @@ public static class PrefilledData
         {
             Customer.New(CustomerId.New(1), "sarah", HashedPassword, Salt, "sarah@gmail.com", "Sarah", "Evans", null, 1),
             Customer.New(CustomerId.New(2), "john", HashedPassword, Salt, "john@gmail.com", "John", "Smith", "Evergreen 11, 12345 New York", 1),
-            Customer.New(CustomerId.New(3), "jane", HashedPassword, Salt, "hastings@gmail.com", "Jane", "Hastings", "35 Hendford Hill, HR84UN Much Marcle", 2)
+            Customer.New(CustomerId.New(3), "jane", HashedPassword, Salt, "hastings@gmail.com", "Jane", "Hastings", "35 Hendford Hill, HR84UN Much Marcle", 1)
         };
     }
 
@@ -49,7 +49,8 @@ public static class PrefilledData
         {
             Employee.New(EmployeeId.New(1), "11", HashedPassword, Salt, FranchiseId.New(1), groupId: null, 0, "aa@gmail.com", "Adam", "Smith", "+1223457855", "6 Nottingham Rd, Selby", "GB24BKEN10000031510604", 1, new List<EmployeeRole>() { EmployeeRole.Manager } , new DateOnly(1999, 10, 10)),
             Employee.New(EmployeeId.New(2), "12", HashedPassword, Salt, FranchiseId.New(1), GroupId.New(1), 0, "bb@gmail.com", "Babam", "Smith", "+555555566", "999 Nottingham Rd, Selby", "GB24BKEN99990031510604", 0.8m, new List<EmployeeRole>() { EmployeeRole.Cashier, EmployeeRole.Specialist } , new DateOnly(2000, 02, 02)),
-            Employee.New(EmployeeId.New(3), "23", HashedPassword, Salt, FranchiseId.New(2), groupId: null, 0, "zz@gmail.com", "Zen", "Smith", "+1111111111", "000 Nottingham Rd, Selby", "HK912FFF98890011540321", 1, new List<EmployeeRole>() { EmployeeRole.Cashier } , new DateOnly(2001, 01, 01)),
+            Employee.New(EmployeeId.New(3), "13", HashedPassword, Salt, FranchiseId.New(1), groupId: null, 0, "zz@gmail.com", "Zen", "Smith", "+1111111111", "000 Nottingham Rd, Selby", "HK912FFF98890011540321", 1, new List<EmployeeRole>() { EmployeeRole.Cashier } , new DateOnly(2001, 01, 01)),
+            Employee.New(EmployeeId.New(4), "14", HashedPassword, Salt, FranchiseId.New(1), groupId: null, 0, "zz@gmail.com", "Zen", "Smith", "+1111111111", "000 Nottingham Rd, Selby", "HK912FFF98890011540321", 1, new List<EmployeeRole>() { EmployeeRole.Courier } , new DateOnly(2001, 01, 01)),
         };
     }
 
@@ -59,7 +60,7 @@ public static class PrefilledData
         {
             Group.New(GroupId.New(1), FranchiseId.New(1), "test1group", "group1 fran1"),
             Group.New(GroupId.New(2), FranchiseId.New(1), "test2group", "group2 fran1"),
-            Group.New(GroupId.New(3), FranchiseId.New(2), "test3group", "group3 fran2"),
+            Group.New(GroupId.New(3), FranchiseId.New(1), "test3group", "group3 fran2"),
         };
     }
 
@@ -108,8 +109,8 @@ public static class PrefilledData
         return new List<Franchise>()
         {
             Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","Maxima","+370000000"),
-            Franchise.New(FranchiseId.New(2),"tom.tomson@gmail.com","IKI","+370000000"),
-            Franchise.New(FranchiseId.New(3),"tom.tomson@gmail.com","Lidl","+370000000"),
+            Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","IKI","+370000000"),
+            Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","Lidl","+370000000"),
         };
     }
 
@@ -140,6 +141,7 @@ public static class PrefilledData
             Order.New(OrderId.New(1),CustomerId.New(1),EmployeeId.New(1),EmployeeId.New(1),LocationId.New(1),true),
             Order.New(OrderId.New(2),CustomerId.New(2),EmployeeId.New(2),EmployeeId.New(2),LocationId.New(2),true),
             Order.New(OrderId.New(3),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(3),LocationId.New(3),false),
+            Order.New(OrderId.New(4),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(4),LocationId.New(3), true),
         };
     }
 
@@ -148,8 +150,8 @@ public static class PrefilledData
         return new List<Product>()
         {
             Product.NewProduct(ProductId.New(1), FranchiseId.New(1),EmployeeId.New(1),DiscountId.New(1),CategoryId.New(1),"Banana",12,1,10),
-            Product.NewProduct(ProductId.New(2), FranchiseId.New(2),EmployeeId.New(2),DiscountId.New(2),CategoryId.New(2),"Apples",5,1,10),
-            Product.NewProduct(ProductId.New(3), FranchiseId.New(3),EmployeeId.New(3),DiscountId.New(3),CategoryId.New(3),"Pineapple",6,1,10),
+            Product.NewProduct(ProductId.New(2), FranchiseId.New(1),EmployeeId.New(2),DiscountId.New(2),CategoryId.New(2),"Apples",5,1,10),
+            Product.NewProduct(ProductId.New(3), FranchiseId.New(1),EmployeeId.New(3),DiscountId.New(3),CategoryId.New(3),"Pineapple",6,1,10),
         };
     }
 }
