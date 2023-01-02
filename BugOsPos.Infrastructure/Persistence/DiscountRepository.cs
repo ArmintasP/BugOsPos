@@ -20,7 +20,7 @@ public sealed class DiscountRepository : IDiscountRepository
         _nextId++;
         return Task.CompletedTask;
     }
-
+    
     public Task<Discount?> GetDiscountById(DiscountId id)
     {
         var Discount = _discounts.SingleOrDefault(

@@ -35,4 +35,9 @@ public sealed class LoyaltyDiscountRepository : ILoyaltyDiscountRepository
         _loyaltyDiscounts[index] = loyaltyDiscount;
         return Task.CompletedTask;
     }
+
+    public List<LoyaltyDiscount>? GetLoyaltyDiscountsByLoyaltyCardId(int loyaltyCardId)
+    {
+        return _loyaltyDiscounts.Where(loyaltyDiscount => loyaltyDiscount.LoyaltyCardId.Value == loyaltyCardId).ToList();
+    }
 }

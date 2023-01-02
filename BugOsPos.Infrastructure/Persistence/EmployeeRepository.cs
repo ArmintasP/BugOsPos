@@ -1,6 +1,7 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
+using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.GroupAggregate.ValueObjects;
 
 namespace BugOsPos.Infrastructure.Persistence;
@@ -55,6 +56,12 @@ public sealed class EmployeeRepository : IEmployeeRepository
     public Task<IEnumerable<Employee>> GetEmployeesByGroupId(GroupId groupId)
     {
         var employees = _employees.Where(e => groupId.Equals(e.GroupId));
+        return Task.FromResult(employees);
+    }
+
+    public Task<IEnumerable<Employee>> GetEmployeesByFranchiseId(FranchiseId franchiseId)
+    {
+         var employees = _employees.Where(e => franchiseId.Equals(e.FranchiseId));
         return Task.FromResult(employees);
     }
 }

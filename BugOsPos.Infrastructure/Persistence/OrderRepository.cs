@@ -1,6 +1,7 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
 using BugOsPos.Domain.OrderAggregate;
+using BugOsPos.Domain.OrderAggregate.Entities;
 using BugOsPos.Domain.OrderAggregate.ValueObjects;
 
 namespace BugOsPos.Infrastructure.Persistence;
@@ -8,17 +9,19 @@ namespace BugOsPos.Infrastructure.Persistence;
 public sealed class OrderRepository : IOrderRepository
 {
     private static readonly List<Order> _orders = PrefilledData.SampleOrders();
-    private int _nextId = _orders.Count + 1;
+    private static readonly List<OrderItem> _orderItems = PrefilledData.SampleOrderItems();
+    private int _ordersNextId = _orders.Count + 1;
+    private int _orderItemsNextId = _orderItems.Count + 1;
 
     public OrderId NextIdentity()
     {
-        return OrderId.New(_nextId);
+        return OrderId.New(_ordersNextId);
     }
 
     public Task Add(Order order)
     {
         _orders.Add(order);
-        _nextId++;
+        _ordersNextId++;
         return Task.CompletedTask;
     }
 
@@ -42,5 +45,13 @@ public sealed class OrderRepository : IOrderRepository
         var orders = _orders.Where(order => id.Equals(order.CourierId));
 
         return Task.FromResult(orders);
+    }
+
+    public Task<OrderItem?> GetOrderItemById(OrderItemId id)
+    {
+        var orderItem = _orderItems.SingleOrDefault(
+            e => e.Id == id);
+
+        return Task.FromResult(orderItem);
     }
 }
