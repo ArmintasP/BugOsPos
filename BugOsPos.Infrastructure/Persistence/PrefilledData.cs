@@ -98,9 +98,12 @@ public static class PrefilledData
     {
         return new List<Discount>()
         {
-            Discount.New(DiscountId.New(1),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
-            Discount.New(DiscountId.New(2),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
-            Discount.New(DiscountId.New(3),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
+            Discount.New(DiscountId.New(1), 0.05m, DiscountType.Percentage, new DateTime(2021, 10, 10), new DateTime(2021, 10, 10)),
+            Discount.New(DiscountId.New(2), 1m, DiscountType.Percentage, new DateTime(2022, 9, 20), new DateTime(2050, 9, 20)),
+            Discount.New(DiscountId.New(3), 100, DiscountType.Amount, new DateTime(2021, 10, 10), new DateTime(2100, 10, 10)),
+            Discount.New(DiscountId.New(4),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
+            Discount.New(DiscountId.New(5),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
+            Discount.New(DiscountId.New(6),10,DiscountType.Percentage, new DateTime(2021, 10, 10, 10, 10, 10), new DateTime(2021, 11, 10, 10, 10, 10)),
         };
     }
 
@@ -118,9 +121,12 @@ public static class PrefilledData
     {
         return new List<LoyaltyCard>()
         {
-           LoyaltyCard.New(LoyaltyCardId.New(1),CustomerId.New(1),"discount1"),
-           LoyaltyCard.New(LoyaltyCardId.New(2),CustomerId.New(2),"discount2"),
-           LoyaltyCard.New(LoyaltyCardId.New(3),CustomerId.New(3),"discount3"),
+            LoyaltyCard.New(LoyaltyCardId.New(1), CustomerId.New(1), "TESTCARD1"),
+            LoyaltyCard.New(LoyaltyCardId.New(2), CustomerId.New(2), "13CC46E66AA8FF900A1"),
+            LoyaltyCard.New(LoyaltyCardId.New(3), CustomerId.New(3), "13CC46E66AA8FF900A2"),
+            LoyaltyCard.New(LoyaltyCardId.New(4),CustomerId.New(4),"discount1"),
+            LoyaltyCard.New(LoyaltyCardId.New(5),CustomerId.New(5),"discount2"),
+            LoyaltyCard.New(LoyaltyCardId.New(6),CustomerId.New(6),"discount3"),
         };
     }
 
@@ -128,9 +134,12 @@ public static class PrefilledData
     {
         return new List<LoyaltyDiscount>()
         {
-           LoyaltyDiscount.New(LoyaltyDiscountId.New(1),LoyaltyCardId.New(1),ProductId.New(1),DiscountId.New(1)),
-           LoyaltyDiscount.New(LoyaltyDiscountId.New(2),LoyaltyCardId.New(2),ProductId.New(2),DiscountId.New(2)),
-           LoyaltyDiscount.New(LoyaltyDiscountId.New(3),LoyaltyCardId.New(3),ProductId.New(3),DiscountId.New(3)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(1), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(1)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(2), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(2)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(3), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(3)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(5),LoyaltyCardId.New(1),ProductId.New(1),DiscountId.New(1)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(6),LoyaltyCardId.New(2),ProductId.New(2),DiscountId.New(2)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(7),LoyaltyCardId.New(3),ProductId.New(3),DiscountId.New(3)),
         };
     }
 
