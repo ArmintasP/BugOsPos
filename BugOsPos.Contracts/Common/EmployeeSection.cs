@@ -1,11 +1,8 @@
-﻿using BugOsPos.Contracts.Common;
+﻿namespace BugOsPos.Contracts.Common;
 
-namespace BugOsPos.Contracts.EmployeeAuthentication;
-
-public sealed record EmployeeRegisterResponse(
+public sealed record EmployeeSection(
     int Id,
     string EmployeeCode,
-    string Password,
     int FranchiseId,
     string Email,
     string Name,

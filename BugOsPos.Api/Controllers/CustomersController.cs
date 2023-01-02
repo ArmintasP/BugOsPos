@@ -8,12 +8,10 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
 
 namespace BugOsPos.Api.Controllers;
 
-[ApiController]
 public class CustomersController : ApiController
 {
     private readonly IMapper _mapper;

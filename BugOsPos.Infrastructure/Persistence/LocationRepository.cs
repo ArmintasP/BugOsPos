@@ -8,7 +8,7 @@ public sealed class LocationRepository : ILocationRepository
 {
     private static readonly List<Location> _locations = PrefilledData.SampleLocations();
     private int _nextId = _locations.Count + 1;
-        
+
     public LocationId NextIdentity()
     {
         return LocationId.New(_nextId);
@@ -26,6 +26,13 @@ public sealed class LocationRepository : ILocationRepository
     {
         _locations.Add(location);
         _nextId++;
+        return Task.CompletedTask;
+    }
+
+    public Task Update(Location location)
+    {
+        var index = _locations.FindIndex(c => c.Id == location.Id);
+        _locations[index] = location;
         return Task.CompletedTask;
     }
 }
