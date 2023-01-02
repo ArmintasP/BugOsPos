@@ -27,6 +27,25 @@ public sealed class Location : AggregateRoot<LocationId>
         OverriddenWorkingHours = new List<OverriddenWorkingHours>();
     }
 
+    private Location(
+          LocationId id,
+          string name,
+          string address,
+          Rating rating) : base(id)
+    {
+        Name = name;
+        Address = address;
+        Rating = rating;
+        PhotoPaths = new List<string>();
+        NormalWorkingHours = new List<NormalWorkingHours>();
+        OverriddenWorkingHours = new List<OverriddenWorkingHours>();
+    }
+
+    public static Location New(LocationId id, string name, string address, Rating rating)
+    {
+        return new Location(id, name, address, rating);
+    }
+
     public static Location New(
         LocationId id,
         string name,

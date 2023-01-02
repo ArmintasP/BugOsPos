@@ -27,7 +27,17 @@ public sealed class LocationMapping : IRegister
             .Map(dest => dest.Id, src => src.Location.Id.Value);
 
         config.NewConfig<CreateLocationResult, CreateLocationResponse>()
-            .Map(dest => dest ,src => src.Location)
+            .Map(dest => dest, src => src.Location)
             .Map(dest => dest.Id, src => src.Location.Id.Value);
+
+        config.NewConfig<CreateLocationRatingResult, CreateLocationRatingResponse>()
+            .Map(dest => dest, src => src.Location)
+            .Map(dest => dest.Id, src => src.Location.Id.Value)
+            .Map(dest => dest.Rating.Value, src => src.Location.Rating.Value)
+            .Map(dest => dest.Rating.NumberOrRatings, src => src.Location.Rating.NumberOfRatings);
+
+        config.NewConfig<(int, decimal), CreateLocationRatingCommand>()
+           .Map(dest => dest.RatingNumber, src => src.Item2)
+           .Map(dest => dest.Id, src => src.Item1);
     }
 }
