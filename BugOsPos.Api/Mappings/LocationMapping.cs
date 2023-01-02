@@ -39,5 +39,9 @@ public sealed class LocationMapping : IRegister
         config.NewConfig<(int, decimal), CreateLocationRatingCommand>()
            .Map(dest => dest.RatingNumber, src => src.Item2)
            .Map(dest => dest.Id, src => src.Item1);
+
+        config.NewConfig<GetLocationEmployeesResult, GetLocationEmployeesResponse>()
+            .Map(dest => dest, src => src.Employees);
+
     }
 }

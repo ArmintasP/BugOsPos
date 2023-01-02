@@ -50,6 +50,27 @@ public sealed class LocationsController : ApiController
             errors => Problem(errors));
     }
 
+    [HttpGet("locations/{id}/employees")]
+    public async Task<IActionResult> GetLocationEmployees(int id)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Errors.Employee.Forbidden });
+
+        if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
+            return Problem(new() { Errors.Authentication.FranchiseIdMissing });
+
+        if (!int.TryParse(franchiseIdString, out var franchiseId))
+            return Problem(new() { Errors.Authentication.InvalidFranchiseId });
+
+        var query = new GetLocationEmployeesQuery(id);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            result => Ok(_mapper.Map<GetLocationEmployeesResponse>(result)),
+            errors => Problem(errors));
+    }
+
+
     [HttpPost("locations")]
     public async Task<IActionResult> CreateLocation(CreateLocationCommand request)
     {
