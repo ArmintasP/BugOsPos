@@ -10,4 +10,5 @@ public interface IOrderRepository
     Task<Order?> GetOrderById(OrderId id);
     Task<IEnumerable<Order>> GetOrdersByCourierId(EmployeeId id);
     Task Add(Order order);
+    Task Update(Order order);
 }

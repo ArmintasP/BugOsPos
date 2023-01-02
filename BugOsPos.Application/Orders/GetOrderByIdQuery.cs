@@ -7,7 +7,7 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 
-namespace BugOsPos.Application.Employees;
+namespace BugOsPos.Application.Orders;
 
 public sealed record GetOrderByIdQuery(
     int Id,
@@ -69,7 +69,7 @@ public sealed class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery
                     return new GetOrderByIdResult(order);
             }
         }
-        
+
         return Domain.Common.ErrorsCollection.Errors.Order.NotFound;
     }
 }

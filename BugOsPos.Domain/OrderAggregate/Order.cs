@@ -1,8 +1,8 @@
 ﻿using BugOsPos.Domain.Common.Models;
 using BugOsPos.Domain.CustomerAggregate.ValueObjects;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
-using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.LocationAggregate.ValueObjects;
+using BugOsPos.Domain.LoyaltyCardAggregate.ValueObjects;
 using BugOsPos.Domain.OrderAggregate.Entities;
 using BugOsPos.Domain.OrderAggregate.ValueObjects;
 
@@ -14,6 +14,7 @@ public sealed class Order : AggregateRoot<OrderId>
     public EmployeeId? CashierId { get; }
     public EmployeeId? CourierId { get; }
     public LocationId LocationId { get; }
+    public LoyaltyCardId? LoyaltyCardId { get;  }
     public Payment? Payment { get;  }
     public List<OrderItem> OrderItems { get; }
     public OrderStatus Status { get; }
@@ -21,10 +22,11 @@ public sealed class Order : AggregateRoot<OrderId>
     public TimeSpan? EstimatedTime { get; }
     public decimal? Tips { get; }
     public decimal TotalPrice { get; }
-    public string? CustomerComment { get; }
+    public string? CustomerComment { get; set; }
 
     private Order(
         OrderId id,
+        LoyaltyCardId? loyaltyCardId,
         CustomerId? customerId,
         EmployeeId? cashierId,
         EmployeeId? courierId,
@@ -35,6 +37,7 @@ public sealed class Order : AggregateRoot<OrderId>
         CustomerId = customerId;
         CashierId = cashierId;
         CourierId = courierId;
+        LoyaltyCardId = loyaltyCardId;
         LocationId = locationId;
         Status = OrderStatus.NotPlaced;
         IsForDelivery = isForDelivery;
@@ -48,6 +51,7 @@ public sealed class Order : AggregateRoot<OrderId>
 
     public static Order New(
         OrderId id,
+        LoyaltyCardId? loyaltyCardId,
         CustomerId? customerId,
         EmployeeId? cashierId,
         EmployeeId? courierId,
@@ -56,6 +60,7 @@ public sealed class Order : AggregateRoot<OrderId>
     {
         return new Order(
             id,
+            loyaltyCardId,
             customerId,
             cashierId,
             courierId,
@@ -63,6 +68,26 @@ public sealed class Order : AggregateRoot<OrderId>
             isForDelivery);
     }
 
+
+    public static Order New(
+        int id,
+        int? loyaltyCardId,
+        int? customerId,
+        int? cashierId,
+        int? courierId,
+        int locationId,
+        bool isForDelivery)
+    {
+        return new Order(
+            OrderId.New(id),
+            loyaltyCardId == null ? null : LoyaltyCardId.New(loyaltyCardId.Value),
+            customerId == null ? null : CustomerId.New(customerId.Value),
+            cashierId == null ? null : EmployeeId.New(cashierId.Value),
+            courierId == null ? null : EmployeeId.New(courierId.Value),
+            LocationId.New(locationId),
+            isForDelivery);
+    }
+    
     public void AddOrderItem(OrderItem item)
     {
         OrderItems.Add(item);
