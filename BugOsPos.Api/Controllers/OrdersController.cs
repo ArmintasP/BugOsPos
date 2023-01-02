@@ -51,14 +51,46 @@ public class OrdersController : ApiController
     /// Creates an Order. Requires a Customer session having that order, or any Employee belonging to the Group that is creating the Order.
     /// </summary>
     [HttpPut("orders/{id}")]
-    public async Task<IActionResult> CreateOrder(int id, CreateOrderRequest request)
+    public async Task<IActionResult> UpdateOrder(int id, UpdateOrderRequest request)
     {
         if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
         {
             if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var customerId))
                 return Problem(new() { Domain.Common.ErrorsCollection.Errors.Customer.Unauthorized });
 
-            var command = new CreateOrderCommand(id, customerId, null, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType);
+            var command = new UpdateOrderCommand(id, customerId, null, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                result => Ok(_mapper.Map<UpdateOrderResponse>(result)),
+                errors => Problem(errors));
+        }
+        else
+        {
+            if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var employeeId))
+                return Problem(new() { Domain.Common.ErrorsCollection.Errors.Employee.NotFound });
+
+            var command = new UpdateOrderCommand(id, null, employeeId, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                result => Ok(_mapper.Map<UpdateOrderResponse>(result)),
+                errors => Problem(errors));
+        }
+    }
+
+    /// <summary>
+    /// Creates an Order. Requires a Customer session having that order, or any Employee belonging to the Group that is creating the Order.
+    /// </summary>
+    [HttpPost("orders/")]
+    public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+        {
+            if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var customerId))
+                return Problem(new() { Domain.Common.ErrorsCollection.Errors.Customer.Unauthorized });
+
+            var command = new CreateOrderCommand(customerId, null, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType, request.OrderItems);
             var result = await _mediator.Send(command);
 
             return result.Match(
@@ -70,7 +102,7 @@ public class OrdersController : ApiController
             if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var employeeId))
                 return Problem(new() { Domain.Common.ErrorsCollection.Errors.Employee.NotFound });
 
-            var command = new CreateOrderCommand(id, null, employeeId, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType);
+            var command = new CreateOrderCommand(null, employeeId, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType, request.OrderItems);
             var result = await _mediator.Send(command);
 
             return result.Match(
