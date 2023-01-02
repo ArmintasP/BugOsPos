@@ -1,30 +1,23 @@
 ﻿using BugOsPos.Domain.Common.Models;
-using BugOsPos.Domain.DiscountAggregate.ValueObjects;
-using BugOsPos.Domain.ProductAggregate.ValueObjects;
 
 namespace BugOsPos.Domain.OrderAggregate.ValueObjects;
 
 public sealed class OrderItemId : ValueObject
 {
-    public OrderId OrderId { get; }
-    public ProductId ProductId { get; }
+    public int Value { get; }
 
-    private OrderItemId(OrderId orderId, ProductId productId)
+    private OrderItemId(int value)
     {
-        OrderId = orderId;
-        ProductId = productId;
+        Value = value;
     }
 
-    public static OrderItemId New(
-        OrderId orderId,
-        ProductId productId)
+    public static OrderItemId New(int id)
     {
-        return new OrderItemId(orderId, productId);
+        return new OrderItemId(id);
     }
 
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return OrderId;
-        yield return ProductId;
+        yield return Value;
     }
 }

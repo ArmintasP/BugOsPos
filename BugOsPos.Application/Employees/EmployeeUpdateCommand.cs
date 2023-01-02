@@ -24,9 +24,9 @@ public sealed record EmployeeUpdateCommand(
     string PhoneNumber,
     int ReadAccess,
     decimal Employment,
-    List<ShiftSection> Shifts) : IRequest<ErrorOr<EmployeeUpdateResult>>;
+    List<ShiftSectionCommand> Shifts) : IRequest<ErrorOr<EmployeeUpdateResult>>;
 
-public sealed record ShiftSection(
+public sealed record ShiftSectionCommand(
     int LocationId,
     DateTime Start,
     DateTime End);

@@ -27,4 +27,10 @@ public sealed class GroupRepository : IGroupRepository
         return Task.FromResult(group);
     }
 
+    public Task Update(Group group)
+    {
+        var index = _groups.FindIndex(p => p.Id == group.Id);
+        _groups[index] = group;
+        return Task.CompletedTask;
+    }
 }

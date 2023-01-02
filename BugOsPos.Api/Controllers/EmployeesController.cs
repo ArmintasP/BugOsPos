@@ -80,6 +80,9 @@ public sealed class EmployeesController : ApiController
     [AuthorizeRoles(EmployeeRole.Manager)]
     public async Task<IActionResult> Delete(int id)
     {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Errors.Employee.Forbidden });
+
         if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
             return Problem(new() { Errors.Authentication.FranchiseIdMissing });
         if (!int.TryParse(franchiseIdString, out var franchiseId))
@@ -95,6 +98,18 @@ public sealed class EmployeesController : ApiController
 
         return result.Match(
             result => Ok(),
+            errors => Problem(errors));
+    }
+
+    [HttpGet("employees/{id}/courier/orders")]
+    [AllowAnonymous]
+    public async Task<IActionResult> CourierOrders(int id)
+    {
+        var query = new CourierOrdersQuery(id);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            result => Ok(_mapper.Map<CourierOrdersResponse>(result)),
             errors => Problem(errors));
     }
 }
