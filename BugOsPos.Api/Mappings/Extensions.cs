@@ -48,6 +48,8 @@ internal static class Extensions
             return franchiseId.Value;
         if (valueObject is GroupId groupId)
             return groupId.Value;
+        if (valueObject is OrderItemId orderItemId)
+            return orderItemId.Value;
         else
             throw new NotImplementedException();
     }
