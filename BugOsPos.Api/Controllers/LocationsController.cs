@@ -42,11 +42,31 @@ public sealed class LocationsController : ApiController
         if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
             return Problem(new() { Errors.Employee.Forbidden });
 
-        var command = _mapper.Map<UpdateLocationCommand>((id,request));
+        var command = _mapper.Map<UpdateLocationCommand>((id, request));
         var result = await _mediator.Send(command);
 
         return result.Match(
             result => Ok(_mapper.Map<UpdateLocationResponse>(result)),
+            errors => Problem(errors));
+    }
+
+    [HttpPost("locations")]
+    public async Task<IActionResult> CreateLocation(CreateLocationCommand request)
+    {
+        if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
+            return Problem(new() { Errors.Authentication.FranchiseIdMissing });
+
+        if (!int.TryParse(franchiseIdString, out var franchiseId))
+            return Problem(new() { Errors.Authentication.InvalidFranchiseId });
+
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Errors.Employee.Forbidden });
+
+        var command = _mapper.Map<CreateLocationCommand>(request);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<CreateLocationResponse>(result)),
             errors => Problem(errors));
     }
 }
