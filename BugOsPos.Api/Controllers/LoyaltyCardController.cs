@@ -33,6 +33,8 @@ public sealed class LoyaltyCardController : ApiController
     [Authorize]
     public async Task<IActionResult> GetLoyaltyCard([FromRoute] GetLoyaltyCardByIdRequest request)
     {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Employee.Forbidden });
         var command = _mapper.Map<GetLoyaltyCardByIdQuery>(request);
         var result = await _mediator.Send(command);
 
