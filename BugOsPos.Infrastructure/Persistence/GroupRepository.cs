@@ -1,4 +1,5 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
+using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.GroupAggregate;
 using BugOsPos.Domain.GroupAggregate.ValueObjects;
 
@@ -32,5 +33,11 @@ public sealed class GroupRepository : IGroupRepository
         var index = _groups.FindIndex(p => p.Id == group.Id);
         _groups[index] = group;
         return Task.CompletedTask;
+    }
+
+    public Task<IEnumerable<Group>> GetGroupsByFranchiseId(FranchiseId id)
+    {
+         var groups = _groups.Where(group => group.FranchiseId == id);
+        return Task.FromResult(groups);
     }
 }

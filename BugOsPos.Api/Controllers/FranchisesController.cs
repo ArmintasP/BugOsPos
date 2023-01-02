@@ -43,6 +43,44 @@ public sealed class FranchisesController : ApiController
             errors => Problem(errors));
     }
 
+    [HttpGet("franchises/{id}/groups")]
+    public async Task<IActionResult> GetGroups(int id)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Errors.Employee.Forbidden });
+
+        if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
+            return Problem(new() { Errors.Authentication.FranchiseIdMissing });
+        if (!int.TryParse(franchiseIdString, out var franchiseId))
+            return Problem(new() { Errors.Authentication.InvalidFranchiseId });
+
+        var command = new GetFranchiseGroupsByIdQuery(id);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<GetFranchiseGroupsByIdResponse>(result)),
+            errors => Problem(errors));
+    }
+
+    [HttpGet("franchises/{id}/employees")]
+    public async Task<IActionResult> GetEmployees(int id)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Errors.Employee.Forbidden });
+
+        if (GetClaimValue(JwtSettings.FranchiseClaim) is not string franchiseIdString)
+            return Problem(new() { Errors.Authentication.FranchiseIdMissing });
+        if (!int.TryParse(franchiseIdString, out var franchiseId))
+            return Problem(new() { Errors.Authentication.InvalidFranchiseId });
+
+        var command = new GetFranchiseEmployeesByIdQuery(id);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<GetFranchiseEmployeesByIdResponse>(result)),
+            errors => Problem(errors));
+    }
+
     [HttpPost("franchises/{id}/products")]
     public async Task<IActionResult> CreateProductForFranchise(int id, CreateProductForFranchiseRequest request)
     {

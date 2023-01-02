@@ -1,8 +1,5 @@
 ﻿using BugOsPos.Application.Franchises;
-using BugOsPos.Application.Locations;
 using BugOsPos.Contracts.Franchises;
-using BugOsPos.Contracts.Locations;
-using BugOsPos.Domain.ProductAggregate;
 using Mapster;
 
 namespace BugOsPos.Api.Mappings;
@@ -44,5 +41,11 @@ public sealed class FranchiseMapping : IRegister
         config.NewConfig<(CreateProductForFranchiseRequest request, int id), CreateProductForFranchiseCommand>()
             .Map(dest => dest.Id, src => src.id)
             .Map(dest => dest, src => src.request);
+
+        config.NewConfig<GetFranchiseEmployeesByIdResult, GetFranchiseEmployeesByIdResponse>()
+          .Map(dest => dest.Employees, src => src.Employees);
+
+        config.NewConfig<GetFranchiseGroupsByIdResult, GetFranchiseGroupsByIdResponse>()
+            .Map(dest => dest.Groups, src => src.Groups);
     }
 }
