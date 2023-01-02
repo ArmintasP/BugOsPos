@@ -148,10 +148,10 @@ public static class PrefilledData
     {
         var orders = new List<Order>()
         {
-            Order.New(OrderId.New(1),CustomerId.New(1),EmployeeId.New(1),EmployeeId.New(1),LocationId.New(1),true),
-            Order.New(OrderId.New(2),CustomerId.New(2),EmployeeId.New(2),EmployeeId.New(2),LocationId.New(2),true),
-            Order.New(OrderId.New(3),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(3),LocationId.New(3),false),
-            Order.New(OrderId.New(4),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(4),LocationId.New(3), true),
+            Order.New(OrderId.New(1), LoyaltyCardId.New(1), CustomerId.New(1),EmployeeId.New(1),EmployeeId.New(1),LocationId.New(1),true),
+            Order.New(OrderId.New(2), LoyaltyCardId.New(1),CustomerId.New(2),EmployeeId.New(2),EmployeeId.New(2),LocationId.New(2),true),
+            Order.New(OrderId.New(3), LoyaltyCardId.New(1),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(3),LocationId.New(3),false),
+            Order.New(OrderId.New(4), LoyaltyCardId.New(1),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(4),LocationId.New(3), true),
         };
         var orderItems = SampleOrderItems();
 

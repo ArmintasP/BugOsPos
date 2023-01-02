@@ -1,4 +1,5 @@
 ﻿using BugOsPos.Domain.EmployeeAggregate;
+using BugOsPos.Domain.OrderAggregate.Entities;
 using FluentValidation;
 
 namespace BugOsPos.Application.Common.Behaviors;
@@ -35,6 +36,18 @@ public static class ValidationExtensions
                 if (!existingRoles.Contains(role))
                     context.AddFailure($"Role {role} does not exist");
             }
+        });
+    }
+
+    public static IRuleBuilderOptionsConditions<T, string> PaymentType<T>(
+        this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder.Custom((type, context) =>
+        {
+            var existingRoles = Enum.GetNames(typeof(PaymentType)).ToHashSet();
+
+            if (!existingRoles.Contains(type))
+                context.AddFailure($"Role {type} does not exist");
         });
     }
 }

@@ -1,4 +1,4 @@
-﻿using BugOsPos.Application.Employees;
+﻿using BugOsPos.Application.Orders;
 using BugOsPos.Contracts.Orders;
 using BugOsPos.Domain.CustomerAggregate.ValueObjects;
 using BugOsPos.Infrastructure.Authentication;
@@ -45,5 +45,37 @@ public class OrdersController : ApiController
         return result.Match(
             result => Ok(_mapper.Map<GetOrderByIdResponse>(result)),
             errors => Problem(errors));
+    }
+
+    /// <summary>
+    /// Creates an Order. Requires a Customer session having that order, or any Employee belonging to the Group that is creating the Order.
+    /// </summary>
+    [HttpPut("orders/{id}")]
+    public async Task<IActionResult> CreateOrder(int id, CreateOrderRequest request)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+        {
+            if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var customerId))
+                return Problem(new() { Domain.Common.ErrorsCollection.Errors.Customer.Unauthorized });
+
+            var command = new CreateOrderCommand(id, customerId, null, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                result => Ok(_mapper.Map<CreateOrderResponse>(result)),
+                errors => Problem(errors));
+        }
+        else
+        {
+            if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var employeeId))
+                return Problem(new() { Domain.Common.ErrorsCollection.Errors.Employee.NotFound });
+
+            var command = new CreateOrderCommand(id, null, employeeId, request.LocationId, request.CustomerComment, request.IsDelivery, request.PaymentType);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                result => Ok(_mapper.Map<CreateOrderResponse>(result)),
+                errors => Problem(errors));
+        }
     }
 }
