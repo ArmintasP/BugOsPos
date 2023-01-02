@@ -57,7 +57,7 @@ public sealed class GetLoyaltyCardByIdQueryHandler : IRequestHandler<GetLoyaltyC
         List<Discount> discounts = new List<Discount>();
         foreach(LoyaltyDiscount loyaltyDiscount in loyaltyDiscounts)
         {
-            Discount? discount = await _discountRepository.GetDiscountById(loyaltyDiscount.DiscountId.Value);
+            Discount? discount = await _discountRepository.GetDiscountById(loyaltyDiscount.DiscountId);
             if (discount is not null)
             {
                 discounts.Add(discount);

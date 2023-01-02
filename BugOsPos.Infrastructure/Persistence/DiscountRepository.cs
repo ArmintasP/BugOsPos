@@ -21,10 +21,10 @@ public sealed class DiscountRepository : IDiscountRepository
         return Task.CompletedTask;
     }
     
-    public Task<Discount?> GetDiscountById(int id)
+    public Task<Discount?> GetDiscountById(DiscountId id)
     {
         var Discount = _discounts.SingleOrDefault(
-            e => e.Id.Value == id);
+            e => e.Id == id);
 
         return Task.FromResult(Discount);
     }

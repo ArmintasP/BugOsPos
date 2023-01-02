@@ -1,5 +1,4 @@
-﻿using BugOsPos.Domain.DiscountAggregate;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +14,6 @@ public sealed record GetLoyaltyCardByIdResponse(
 
 public sealed record LoyaltyCardDiscount(
     decimal Amount,
-    DiscountType DiscountType,
+    int DiscountType,
     DateTime FromDateTime,
     DateTime EndDateTime);

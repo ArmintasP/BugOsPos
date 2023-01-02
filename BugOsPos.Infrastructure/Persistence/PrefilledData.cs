@@ -123,10 +123,10 @@ public static class PrefilledData
         {
             LoyaltyCard.New(LoyaltyCardId.New(1), CustomerId.New(1), "TESTCARD1"),
             LoyaltyCard.New(LoyaltyCardId.New(2), CustomerId.New(2), "13CC46E66AA8FF900A1"),
-            LoyaltyCard.New(LoyaltyCardId.New(3), CustomerId.New(3), "13CC46E66AA8FF900A2")
-            LoyaltyCard.New(LoyaltyCardId.New(1),CustomerId.New(4),"discount1"),
-            LoyaltyCard.New(LoyaltyCardId.New(2),CustomerId.New(5),"discount2"),
-            LoyaltyCard.New(LoyaltyCardId.New(3),CustomerId.New(6),"discount3"),
+            LoyaltyCard.New(LoyaltyCardId.New(3), CustomerId.New(3), "13CC46E66AA8FF900A2"),
+            LoyaltyCard.New(LoyaltyCardId.New(4),CustomerId.New(4),"discount1"),
+            LoyaltyCard.New(LoyaltyCardId.New(5),CustomerId.New(5),"discount2"),
+            LoyaltyCard.New(LoyaltyCardId.New(6),CustomerId.New(6),"discount3"),
         };
     }
 
@@ -137,7 +137,6 @@ public static class PrefilledData
             LoyaltyDiscount.New(LoyaltyDiscountId.New(1), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(1)),
             LoyaltyDiscount.New(LoyaltyDiscountId.New(2), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(2)),
             LoyaltyDiscount.New(LoyaltyDiscountId.New(3), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(3)),
-            LoyaltyDiscount.New(LoyaltyDiscountId.New(4), LoyaltyCardId.New(2), ProductId.New(2), DiscountId.New(2))
             LoyaltyDiscount.New(LoyaltyDiscountId.New(5),LoyaltyCardId.New(1),ProductId.New(1),DiscountId.New(1)),
             LoyaltyDiscount.New(LoyaltyDiscountId.New(6),LoyaltyCardId.New(2),ProductId.New(2),DiscountId.New(2)),
             LoyaltyDiscount.New(LoyaltyDiscountId.New(7),LoyaltyCardId.New(3),ProductId.New(3),DiscountId.New(3)),
