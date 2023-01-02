@@ -7,5 +7,6 @@ public interface ILoyaltyDiscountRepository
 {
     LoyaltyDiscountId NextIdentity();
     Task<LoyaltyDiscount?> GetLoyaltyDiscountById(LoyaltyDiscountId id);
+    List<LoyaltyDiscount>? GetLoyaltyDiscountsByLoyaltyCardId(int loyaltyCardId);
     Task Add(LoyaltyDiscount loyaltyDiscount);
 }

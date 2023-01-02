@@ -1,4 +1,5 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
+using BugOsPos.Application.LoyaltyCards;
 using BugOsPos.Domain.LoyaltyCardAggregate;
 using BugOsPos.Domain.LoyaltyCardAggregate.ValueObjects;
 
@@ -21,10 +22,10 @@ public sealed class LoyaltyCardRepository : ILoyaltyCardRepository
         return Task.CompletedTask;
     }
 
-    public Task<LoyaltyCard?> GetLoyaltyCardById(LoyaltyCardId id)
+    public Task<LoyaltyCard?> GetLoyaltyCardById(int id)
     {
         var LoyaltyCard = _loyaltyCards.SingleOrDefault(
-            e => e.Id == id);
+            e => e.Id.Value == id);
 
         return Task.FromResult(LoyaltyCard);
     }

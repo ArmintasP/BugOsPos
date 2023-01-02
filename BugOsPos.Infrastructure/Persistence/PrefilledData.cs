@@ -2,6 +2,7 @@
 using BugOsPos.Domain.CustomerAggregate;
 using BugOsPos.Domain.CustomerAggregate.ValueObjects;
 using BugOsPos.Domain.DiscountAggregate;
+using BugOsPos.Domain.DiscountAggregate.ValueObjects;
 using BugOsPos.Domain.EmployeeAggregate;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
 using BugOsPos.Domain.FranchiseAggregate;
@@ -11,9 +12,12 @@ using BugOsPos.Domain.GroupAggregate.ValueObjects;
 using BugOsPos.Domain.LocationAggregate;
 using BugOsPos.Domain.LocationAggregate.ValueObjects;
 using BugOsPos.Domain.LoyaltyCardAggregate;
+using BugOsPos.Domain.LoyaltyCardAggregate.ValueObjects;
 using BugOsPos.Domain.LoyaltyDiscountAggregate;
+using BugOsPos.Domain.LoyaltyDiscountAggregate.ValueObjects;
 using BugOsPos.Domain.OrderAggregate;
 using BugOsPos.Domain.ProductAggregate;
+using BugOsPos.Domain.ProductAggregate.ValueObjects;
 using BugOsPos.Domain.ShiftAggregate;
 using BugOsPos.Domain.ShiftAggregate.ValueObjects;
 
@@ -82,7 +86,12 @@ public static class PrefilledData
 
     internal static List<Discount> SampleDiscounts()
     {
-        throw new NotImplementedException();
+        return new List<Discount>()
+        {
+            Discount.New(DiscountId.New(1), 0.05m, DiscountType.Percentage, new DateTime(2021, 10, 10), new DateTime(2021, 10, 10)),
+            Discount.New(DiscountId.New(2), 1m, DiscountType.Percentage, new DateTime(2022, 9, 20), new DateTime(2050, 9, 20)),
+            Discount.New(DiscountId.New(3), 100, DiscountType.Amount, new DateTime(2021, 10, 10), new DateTime(2100, 10, 10)),
+        };
     }
 
     internal static List<Franchise> SampleFranchises()
@@ -92,12 +101,23 @@ public static class PrefilledData
 
     internal static List<LoyaltyCard> SampleLoyaltyCards()
     {
-        throw new NotImplementedException();
+        return new List<LoyaltyCard>()
+        {
+            LoyaltyCard.New(LoyaltyCardId.New(1), CustomerId.New(1), "TESTCARD1"),
+            LoyaltyCard.New(LoyaltyCardId.New(2), CustomerId.New(2), "13CC46E66AA8FF900A1"),
+            LoyaltyCard.New(LoyaltyCardId.New(3), CustomerId.New(3), "13CC46E66AA8FF900A2")
+        };
     }
 
     internal static List<LoyaltyDiscount> SampleLoyaltyDiscounts()
     {
-        throw new NotImplementedException();
+        return new List<LoyaltyDiscount>()
+        {
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(1), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(1)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(2), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(2)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(3), LoyaltyCardId.New(1), ProductId.New(1), DiscountId.New(3)),
+            LoyaltyDiscount.New(LoyaltyDiscountId.New(4), LoyaltyCardId.New(2), ProductId.New(2), DiscountId.New(2))
+        };
     }
 
     internal static List<Order> SampleOrders()

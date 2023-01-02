@@ -6,6 +6,6 @@ namespace BugOsPos.Application.Common.Interfaces.Persistence;
 public interface IDiscountRepository
 {
     DiscountId NextIdentity();
-    Task<Discount?> GetDiscountById(DiscountId id);
+    Task<Discount?> GetDiscountById(int id);
     Task Add(Discount discount);
 }
