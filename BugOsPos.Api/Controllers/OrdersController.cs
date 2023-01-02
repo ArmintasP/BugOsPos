@@ -1,4 +1,4 @@
-﻿using BugOsPos.Application.Orders;
+using BugOsPos.Application.Orders;
 using BugOsPos.Contracts.Orders;
 using BugOsPos.Domain.CustomerAggregate.ValueObjects;
 using BugOsPos.Infrastructure.Authentication;

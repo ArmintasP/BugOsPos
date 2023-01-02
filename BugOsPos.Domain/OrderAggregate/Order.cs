@@ -68,6 +68,7 @@ public sealed class Order : AggregateRoot<OrderId>
             isForDelivery);
     }
 
+
     public static Order New(
         int id,
         int? loyaltyCardId,
@@ -86,7 +87,7 @@ public sealed class Order : AggregateRoot<OrderId>
             LocationId.New(locationId),
             isForDelivery);
     }
-
+    
     public void AddOrderItem(OrderItem item)
     {
         OrderItems.Add(item);

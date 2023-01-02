@@ -1,4 +1,4 @@
-﻿using ErrorOr;
+using ErrorOr;
 
 namespace BugOsPos.Domain.Common.ErrorsCollection;
 

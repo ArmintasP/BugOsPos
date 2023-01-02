@@ -1,4 +1,4 @@
-﻿using BugOsPos.Application.Orders;
+using BugOsPos.Application.Orders;
 using BugOsPos.Contracts.Common;
 using BugOsPos.Contracts.Orders;
 using BugOsPos.Domain.OrderAggregate;
@@ -28,6 +28,7 @@ public class OrderMapping : IRegister
             .Map(dest => dest.Status, src => src.Status.ToString());
 
         config.NewConfig<GetOrderByIdResult, GetOrderByIdResponse>();
+        
         config.NewConfig<CreateOrderResult, CreateOrderResponse>();
     }
 }
