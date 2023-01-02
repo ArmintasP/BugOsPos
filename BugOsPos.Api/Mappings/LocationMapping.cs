@@ -25,5 +25,9 @@ public sealed class LocationMapping : IRegister
         config.NewConfig<UpdateLocationResult, UpdateLocationResponse>()
             .Map(dest => dest, src => src.Location)
             .Map(dest => dest.Id, src => src.Location.Id.Value);
+
+        config.NewConfig<CreateLocationResult, CreateLocationResponse>()
+            .Map(dest => dest ,src => src.Location)
+            .Map(dest => dest.Id, src => src.Location.Id.Value);
     }
 }
