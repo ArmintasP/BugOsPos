@@ -17,5 +17,13 @@ public sealed class LocationMapping : IRegister
             .Map(dest => dest.PhotoPaths, src => src.Location.PhotoPaths)
             .Map(dest => dest.NormalWorkingHours, src => src.Location.NormalWorkingHours)
             .Map(dest => dest.OverriddenWorkingHours, src => src.Location.OverriddenWorkingHours);
+
+        config.NewConfig<(int, UpdateLocationRequest), UpdateLocationCommand>()
+            .Map(dest => dest, src => src.Item2)
+            .Map(dest => dest.Id, src => src.Item1);
+
+        config.NewConfig<UpdateLocationResult, UpdateLocationResponse>()
+            .Map(dest => dest, src => src.Location)
+            .Map(dest => dest.Id, src => src.Location.Id.Value);
     }
 }
