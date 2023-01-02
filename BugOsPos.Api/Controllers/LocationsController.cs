@@ -69,4 +69,15 @@ public sealed class LocationsController : ApiController
             result => Ok(_mapper.Map<CreateLocationResponse>(result)),
             errors => Problem(errors));
     }
+
+    [HttpPut("locations/{id}/rate/{ratingNumber}")]
+    public async Task<IActionResult> RateLocation(int id, decimal ratingNumber)
+    {
+        var command = new CreateLocationRatingCommand(id, ratingNumber);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<CreateLocationRatingResponse>(result)),
+            errors => Problem(errors));
+    }
 }
