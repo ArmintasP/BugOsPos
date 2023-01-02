@@ -168,7 +168,7 @@ public static class PrefilledData
         {
             OrderItem.New(OrderItemId.New(1), ProductId.New(1), DiscountId.New(1), 2, OrderItemStatus.Pending),
             OrderItem.New(OrderItemId.New(2), ProductId.New(2), DiscountId.New(1), 1, OrderItemStatus.Pending),
-            OrderItem.New(OrderItemId.New(2), ProductId.New(3), DiscountId.New(2), 1, OrderItemStatus.Pending),
+            OrderItem.New(OrderItemId.New(3), ProductId.New(3), DiscountId.New(2), 1, OrderItemStatus.Pending),
         };
     }
 

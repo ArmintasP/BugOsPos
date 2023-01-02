@@ -8,9 +8,9 @@
 
 //namespace BugOsPos.Application.Employees;
 
-//public sealed record TemplateCommand(int Id, int FranchiseId) : IRequest<ErrorOr<TemplateeResult>>;
+//public sealed record TemplateCommand(int Id, int FranchiseId) : IRequest<ErrorOr<TemplateResult>>;
 
-//public sealed record TemplateeResult();
+//public sealed record TemplateResult();
 
 //public sealed class TemplateValidator : AbstractValidator<TemplateCommand>
 //{

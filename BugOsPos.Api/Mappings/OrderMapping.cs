@@ -29,6 +29,7 @@ public class OrderMapping : IRegister
 
         config.NewConfig<GetOrderByIdResult, GetOrderByIdResponse>();
         
+        config.NewConfig<UpdateOrderResult, UpdateOrderResponse>();
         config.NewConfig<CreateOrderResult, CreateOrderResponse>();
     }
 }

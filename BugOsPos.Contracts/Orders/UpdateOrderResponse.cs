@@ -2,4 +2,4 @@
 
 namespace BugOsPos.Contracts.Orders;
 
-public sealed record CreateOrderResponse(OrderSection Order);
+public sealed record UpdateOrderResponse(OrderSection Order);
