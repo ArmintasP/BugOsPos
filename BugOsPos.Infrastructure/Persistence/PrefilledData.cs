@@ -109,8 +109,8 @@ public static class PrefilledData
         return new List<Franchise>()
         {
             Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","Maxima","+370000000"),
-            Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","IKI","+370000000"),
-            Franchise.New(FranchiseId.New(1),"tom.tomson@gmail.com","Lidl","+370000000"),
+            Franchise.New(FranchiseId.New(2),"tom.tomson@gmail.com","IKI","+370000000"),
+            Franchise.New(FranchiseId.New(3),"tom.tomson@gmail.com","Lidl","+370000000"),
         };
     }
 

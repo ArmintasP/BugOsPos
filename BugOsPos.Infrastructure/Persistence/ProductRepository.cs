@@ -1,4 +1,5 @@
 ﻿using BugOsPos.Application.Common.Interfaces.Persistence;
+using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
 using BugOsPos.Domain.ProductAggregate;
 using BugOsPos.Domain.ProductAggregate.ValueObjects;
 
@@ -33,5 +34,13 @@ public sealed class ProductRepository : IProductRepository
         var index = _products.FindIndex(p => p.Id == product.Id);
         _products[index] = product;
         return Task.CompletedTask;
+    }
+
+    public Task<IEnumerable<Product>> GetProductsByFranchiseId(FranchiseId id)
+    {
+         var products = _products.Where(
+            e => e.FranchiseId == id);
+        
+        return Task.FromResult(products);
     }
 }
