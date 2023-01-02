@@ -62,6 +62,11 @@ public sealed class Order : AggregateRoot<OrderId>
             locationId,
             isForDelivery);
     }
+
+    public void AddOrderItem(OrderItem item)
+    {
+        OrderItems.Add(item);
+    }
 }
 
 public enum OrderStatus

@@ -17,6 +17,7 @@ using BugOsPos.Domain.LoyaltyCardAggregate.ValueObjects;
 using BugOsPos.Domain.LoyaltyDiscountAggregate;
 using BugOsPos.Domain.LoyaltyDiscountAggregate.ValueObjects;
 using BugOsPos.Domain.OrderAggregate;
+using BugOsPos.Domain.OrderAggregate.Entities;
 using BugOsPos.Domain.OrderAggregate.ValueObjects;
 using BugOsPos.Domain.ProductAggregate;
 using BugOsPos.Domain.ProductAggregate.ValueObjects;
@@ -145,12 +146,29 @@ public static class PrefilledData
 
     internal static List<Order> SampleOrders()
     {
-        return new List<Order>()
+        var orders = new List<Order>()
         {
             Order.New(OrderId.New(1),CustomerId.New(1),EmployeeId.New(1),EmployeeId.New(1),LocationId.New(1),true),
             Order.New(OrderId.New(2),CustomerId.New(2),EmployeeId.New(2),EmployeeId.New(2),LocationId.New(2),true),
             Order.New(OrderId.New(3),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(3),LocationId.New(3),false),
             Order.New(OrderId.New(4),CustomerId.New(3),EmployeeId.New(3),EmployeeId.New(4),LocationId.New(3), true),
+        };
+        var orderItems = SampleOrderItems();
+
+        orders[0].AddOrderItem(orderItems[0]);
+        orders[0].AddOrderItem(orderItems[1]);
+        orders[1].AddOrderItem(orderItems[2]);
+
+        return orders;
+    }
+
+    internal static List<OrderItem> SampleOrderItems()
+    {
+        return new List<OrderItem>()
+        {
+            OrderItem.New(OrderItemId.New(1), ProductId.New(1), DiscountId.New(1), 2, OrderItemStatus.Pending),
+            OrderItem.New(OrderItemId.New(2), ProductId.New(2), DiscountId.New(1), 1, OrderItemStatus.Pending),
+            OrderItem.New(OrderItemId.New(2), ProductId.New(3), DiscountId.New(2), 1, OrderItemStatus.Pending),
         };
     }
 
