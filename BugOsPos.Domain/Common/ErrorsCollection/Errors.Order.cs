@@ -10,6 +10,10 @@ public static partial class Errors
 			code: "Order.NotFound",
 			description: "Order with this id was not found.");
 		
+		public static Error AlreadyConfirmed => Error.NotFound(
+			code: "Order.AlreadyConfirmed",
+			description: "Order is already placed and have been confirmed in the past.");
+		
 		public static Error OrderItemNotFound => Error.NotFound(
 			code: "Order.OrderItemNotFound",
 			description: "Orderitem with this id was not found.");

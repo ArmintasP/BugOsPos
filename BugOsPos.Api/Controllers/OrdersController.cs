@@ -110,4 +110,45 @@ public class OrdersController : ApiController
                 errors => Problem(errors));
         }
     }
+
+    /// <summary>
+    /// Confirms the Order specified by id. Requires a Customer session having that order.
+    /// </summary>
+    [HttpPost("orders/{id}/confirm")]
+    public async Task<IActionResult> OrderConfirmByCustomer(int id)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is not null)
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Employee.Forbidden });
+        
+        if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var customerId))
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Customer.Unauthorized });
+
+        var command = new ConfirmOrderCommand(id, customerId, null);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(),
+            errors => Problem(errors));
+    }
+
+    /// <summary>
+    /// Confirms the Order specified by id. Requires an Employee session of a Group that took the Order. 
+    /// </summary>
+    [HttpPost("orders/{id}/accept")]
+    public async Task<IActionResult> OrderConfirmByEmployee(int id)
+    {
+        if (GetClaimValue(JwtSettings.EmployeeClaim) is null)
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Customer.Unauthorized });
+
+        if (!int.TryParse(GetClaimValue(ClaimTypes.NameIdentifier), out var employeeId))
+            return Problem(new() { Domain.Common.ErrorsCollection.Errors.Employee.Forbidden});
+
+        var command = new ConfirmOrderCommand(id, null, employeeId);
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(),
+            errors => Problem(errors));
+    }
+
 }
