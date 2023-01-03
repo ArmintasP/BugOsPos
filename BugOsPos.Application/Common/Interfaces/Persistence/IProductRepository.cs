@@ -11,4 +11,5 @@ public interface IProductRepository
     Task<IEnumerable<Product>> GetProductsByFranchiseId(FranchiseId id);
     Task Add(Product product);
     Task Update(Product product);
+    Task <IEnumerable<Product>> GetAllProducts();
 }

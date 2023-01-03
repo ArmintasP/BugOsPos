@@ -43,4 +43,12 @@ public sealed class ProductRepository : IProductRepository
         
         return Task.FromResult(products);
     }
+
+    public Task<IEnumerable<Product>> GetAllProducts()
+    {
+        var products = _products.Where(
+            e => e.Id.Value != null);
+
+        return Task.FromResult(products);
+    }
 }

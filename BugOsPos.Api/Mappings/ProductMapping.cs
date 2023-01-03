@@ -14,5 +14,8 @@ public sealed class ProductMapping : IRegister
             .Map(dest => dest.FranchiseId, src => src.Product.FranchiseId.Get())
             .Map(dest => dest.CategoryId, src => src.Product.CategoryId.Get())
             .Map(dest => dest.DiscountId, src => src.Product.DiscountId.Get());
+        
+        config.NewConfig<GetProductsResult, GetProductsResponse>()
+            .Map(dest => dest, src => src.Products);
     }
 }

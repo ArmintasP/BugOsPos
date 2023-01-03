@@ -34,4 +34,17 @@ public sealed class ProductsController : ApiController
             result => Ok(_mapper.Map<GetProductByIdResponse>(result)),
             errors => Problem(errors));
     }
+    
+    [HttpGet("products")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetProducts()
+    {
+        
+        var command = new GetProductsQuery();
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            result => Ok(_mapper.Map<GetProductsResponse>(result)),
+            errors => Problem(errors));
+    }
 }
