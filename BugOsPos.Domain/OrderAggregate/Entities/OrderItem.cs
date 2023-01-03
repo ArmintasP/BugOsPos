@@ -12,6 +12,8 @@ public sealed class OrderItem : Entity<OrderItemId>
     public int Quantity { get; }
     public OrderItemStatus Status { get; }
 
+    public bool IsRated { get; set; }
+
     private OrderItem(
         OrderItemId id,
         ProductId productId,
@@ -24,6 +26,7 @@ public sealed class OrderItem : Entity<OrderItemId>
         DiscountId = discountId;
         Quantity = quantity;
         Status = status;
+        IsRated = false;
     }
 
     public static OrderItem New(

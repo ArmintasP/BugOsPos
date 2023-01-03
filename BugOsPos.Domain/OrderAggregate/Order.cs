@@ -14,8 +14,8 @@ public sealed class Order : AggregateRoot<OrderId>
     public EmployeeId? CashierId { get; }
     public EmployeeId? CourierId { get; }
     public LocationId LocationId { get; }
-    public LoyaltyCardId? LoyaltyCardId { get;  }
-    public Payment? Payment { get;  }
+    public LoyaltyCardId? LoyaltyCardId { get; }
+    public Payment? Payment { get; private set; }
     public List<OrderItem> OrderItems { get; }
     public OrderStatus Status { get; private set; }
     public bool IsForDelivery { get; }
@@ -87,7 +87,7 @@ public sealed class Order : AggregateRoot<OrderId>
             LocationId.New(locationId),
             isForDelivery);
     }
-    
+
     public void AddOrderItem(OrderItem item)
     {
         OrderItems.Add(item);
@@ -97,6 +97,16 @@ public sealed class Order : AggregateRoot<OrderId>
     {
         Status = OrderStatus.Confirmed;
     }
+
+    public void Complete()
+    {
+        Status = OrderStatus.Closed;
+    }
+    public void Pay(PaymentType type, DateTime time)
+    {
+        Payment = Payment.New(PaymentId.New(Id.Value), type, time);
+    }
+
 }
 
 public enum OrderStatus

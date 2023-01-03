@@ -1,5 +1,6 @@
 ﻿using BugOsPos.Domain.CategoryAggregate.ValueObjects;
 using BugOsPos.Domain.Common.Models;
+using BugOsPos.Domain.Common.ValueObjects;
 using BugOsPos.Domain.DiscountAggregate.ValueObjects;
 using BugOsPos.Domain.EmployeeAggregate.ValueObjects;
 using BugOsPos.Domain.FranchiseAggregate.ValueObjects;
@@ -21,6 +22,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public int Quantity { get; }
     public TimeOnly? Duration { get; }
     public DateTime? ReservationDate { get; }
+    public Rating Rating { get; }
 
     private Product(
         ProductId id,
@@ -49,6 +51,7 @@ public sealed class Product : AggregateRoot<ProductId>
         Quantity = quantity;
         Duration = duration;
         ReservationDate = reservationDate;
+        Rating = Rating.New();
     }
 
     public static Product NewService(

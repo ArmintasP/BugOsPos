@@ -54,4 +54,11 @@ public sealed class OrderRepository : IOrderRepository
 
         return Task.FromResult(orderItem);
     }
+
+    public Task UpdateOrderItem(OrderItem orderItem)
+    {
+        var index = _orderItems.FindIndex(p => p.Id == orderItem.Id);
+        _orderItems[index] = orderItem;
+        return Task.CompletedTask;
+    }
 }

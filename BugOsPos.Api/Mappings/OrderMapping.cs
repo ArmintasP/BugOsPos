@@ -31,5 +31,18 @@ public class OrderMapping : IRegister
         
         config.NewConfig<UpdateOrderResult, UpdateOrderResponse>();
         config.NewConfig<CreateOrderResult, CreateOrderResponse>();
+
+        config.NewConfig<InitiateOrderPaymentResult, InitiateOrderPaymentResponse>()
+            .Map(dest => dest.CreatedAt, src => src.Payment.CreatedAt)
+            .Map(dest => dest.Id, src => src.Payment.Id.Get())
+            .Map(dest => dest.Type, src => src.Payment.PaymentType.ToString());
+        
+        config.NewConfig<GetOrderInvoiceResult, GetOrderInvoiceResponse>()
+            .Map(dest => dest.CreatedAt, src => src.Payment.CreatedAt)
+            .Map(dest => dest.Id, src => src.Payment.Id.Get())
+            .Map(dest => dest.Type, src => src.Payment.PaymentType.ToString())
+            .Map(dest => dest.Invoice, src => src.Invoice);
+
+        config.NewConfig<RateOrderProductResult, RateOrderProductResponse>();
     }
 }
