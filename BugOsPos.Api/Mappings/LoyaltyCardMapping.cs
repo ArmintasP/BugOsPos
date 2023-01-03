@@ -23,5 +23,23 @@ public sealed class LoyaltyCardMapping : IRegister
             .Map(dest => dest.CustomerId, src => src.LoyaltyCard.CustomerId.Value)
             .Map(dest => dest.LoyaltyCardCode, src => src.LoyaltyCard.Code)
             .Map(dest => dest.Discounts, src => src.Discounts);
+
+        config.NewConfig<CreateLoyaltyCardRequest, CreateLoyaltyCardCommand>()
+            .Map(dest => dest.CustomerId, src => src.CustomerId);
+        
+        config.NewConfig<CreateLoyaltyCardResult, CreateLoyaltyCardResponse>()
+            .Map(dest => dest.LoyaltyCardId, src => src.LoyaltyCard.Id.Value)
+            .Map(dest => dest.CustomerId, src => src.LoyaltyCard.CustomerId.Value)
+            .Map(dest => dest.LoyaltyCardCode, src => src.LoyaltyCard.Code);
+
+        config.NewConfig<(int id, AddLoyaltyCardDiscountsRequest request), AddLoyaltyCardDiscountsCommand>()
+            .Map(dest => dest.LoyaltyCardId, src => src.id)
+            .Map(dest => dest.DiscountIds, src => src.request.DiscountIds);
+
+        config.NewConfig<AddLoyaltyCardDiscountsResult, AddLoyaltyCardDiscountsResponse>()
+            .Map(dest => dest.LoyaltyCardId, src => src.LoyaltyCard.Id.Value)
+            .Map(dest => dest.CustomerId, src => src.LoyaltyCard.CustomerId.Value)
+            .Map(dest => dest.LoyaltyCardCode, src => src.LoyaltyCard.Code)
+            .Map(dest => dest.Discounts, src => src.Discounts);
     }
 }
