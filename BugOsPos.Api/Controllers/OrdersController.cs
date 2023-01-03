@@ -263,5 +263,4 @@ public class OrdersController : ApiController
             result => Ok(_mapper.Map<RateOrderProductResponse>(result)),
             errors => Problem(errors));
     }
-
 }

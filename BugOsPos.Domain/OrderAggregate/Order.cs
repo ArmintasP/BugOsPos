@@ -106,6 +106,7 @@ public sealed class Order : AggregateRoot<OrderId>
     {
         Payment = Payment.New(PaymentId.New(Id.Value), type, time);
     }
+
 }
 
 public enum OrderStatus
