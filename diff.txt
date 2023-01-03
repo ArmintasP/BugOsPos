@@ -1,0 +1,46 @@
+
+
+customers/signup & /customers/login
+request:
+The request will have additional, franchiseId parameter. Reason: in documentation franchiseId represents different franchises. Therefore, we must know to which franchise the user belongs.
+response:
+The response will be different, we are going to return the following values:
+id, franchiseId, username, name, surname, token.
+Reason: returning a password back is not a good practice and serves no purpose. Returning null/default values (deliveryaddress, blocked) serves no point as well.
+The same response will be used for /customers/login.
+Customer & Employee will have attribute 'salt'.
+
+
+Since endpoints were defined to take name, surname, Customer will have non null name, surname in db model.
+we don't say (maybe not, idk).
+
+
+Mentions of "completed order" are in the documentation, however, data model has only the following states: InMaking, Ready, InDelivery, Delivered, Closed.
+
+Data model:
+Table 'LoyaltyCard': removed Name and surname (we already have customerId, no need to duplicate data).
+Table 'Payment_Expenses': renamed to 'Payment', left only 'Id', 'PaymentType', 'DocumentsPaths'. We followed Jake's suggestion here.
+Table 'LocationOverrideHours' removed. 'OrverrideWorkingHours' is enough, having both tables leads to data duplication (both have locationId).
+
+
+Product & OrderLine tables have some attributes associated with discounts. We decided to use Discounts instead of those attributes, since it reduces unnecessary complexity.
+There will be seperate table for LoyaltyDiscounts (the table is identical to DiscountSetup, just a different name),
+
+We folloed Jake's advice, removed Ingridients table, since it's unlikely to be a part of POS. Attribute 'Size' from 'Product' ('Product_Service') table renamed to 'Quantity'.
+However, we did decide to include 'Taxes' attribute (of decimal type).
+It's weird that order has "start" and "end" dates, since it's a collection of multiple products and/or services. We removed it. 'Time' renamed to 'EstimatedTime' (there is a user need to notify customers how long it might take to deliver the order).
+
+
+Attribute 'Place' removed from table 'Order'. It's uses are poorly documented, to be precise, not documented at all. 
+
+Table 'Product': we interpreted 'Time' as duration of a service and 'ReservationDateTime' as a time, when the service does start. Also, there is an attribute 'Category' of integer type, however, we see no other tables referring to it (since different franchises might have different categories). Therefore, we created a new entity, Category, with franchise id, name and it's own id.
+
+The documentation doesn't mention anything about the order comments, however, there is a user need (in user story map) to leave comments for order items. 
+
+OrderLine renamed to OrderItem. CurrentStatus (from 'Order' & 'OrderLine' table) renamed to Status.
+
+Endpoint /employes/{id} renamed to /employees/create, since id should not be supplied manually but provided by application/db. Parameter 'franchiseId' is redundant, since (according to businessdocumentation) manager can only manage his group and/or frachise. Rating removed, since every new employee should start with zero rating.
+
+Employee.Type --> Employee.Roles (more readable)
+
+PUT /employees/{id} removed "types/roles", because employee shouldn't manage her own roles.
