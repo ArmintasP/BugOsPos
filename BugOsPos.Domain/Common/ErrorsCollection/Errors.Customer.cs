@@ -19,6 +19,6 @@ public static partial class Errors
         
         public static Error Unauthorized => Error.Conflict(
             code: "Customer.Unauthorized",
-            description: "Unauthorized access to another customer.");
+            description: "Unauthorized access.");
     }
 }

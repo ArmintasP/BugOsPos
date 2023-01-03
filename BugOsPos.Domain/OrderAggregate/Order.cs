@@ -17,7 +17,7 @@ public sealed class Order : AggregateRoot<OrderId>
     public LoyaltyCardId? LoyaltyCardId { get;  }
     public Payment? Payment { get;  }
     public List<OrderItem> OrderItems { get; }
-    public OrderStatus Status { get; }
+    public OrderStatus Status { get; private set; }
     public bool IsForDelivery { get; }
     public TimeSpan? EstimatedTime { get; }
     public decimal? Tips { get; }
@@ -92,11 +92,17 @@ public sealed class Order : AggregateRoot<OrderId>
     {
         OrderItems.Add(item);
     }
+
+    public void Confirm()
+    {
+        Status = OrderStatus.Confirmed;
+    }
 }
 
 public enum OrderStatus
 {
     NotPlaced = 0,
+    Confirmed,
     InMaking,
     Ready,
     InDelivery,
